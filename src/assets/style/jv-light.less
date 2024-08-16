@@ -1,0 +1,57 @@
+@theme-bg-color: #282c34;
+@code-color: #e06c75;
+@code-symbol: #abb2bf;
+
+
+.json-dark-theme {
+  // background: #fff;
+  // color: #525252;
+  color: @code-color;
+  background-color: @theme-bg-color;
+  white-space: nowrap;
+  font-size: 14px;
+  font-family: Consolas, Menlo, Courier, monospace;
+
+  .jv-ellipsis {
+    color: #999;
+    // background-color: #eee;
+    display: inline-block;
+    line-height: 0.9;
+    font-size: 0.9em;
+    padding: 0px 4px 2px 4px;
+    border-radius: 3px;
+    vertical-align: 2px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .jv-button { color: #49b3ff }
+  .jv-key { color: @code-color }
+  .jv-item {
+    &.jv-array { color: @code-symbol }
+    &.jv-boolean { color: #fc1e70 }
+    &.jv-function { color: #067bca }
+    &.jv-number { color: #fc1e70 }
+    &.jv-number-float { color: #fc1e70 }
+    &.jv-number-integer { color: #fc1e70 }
+    &.jv-object { color: @code-symbol }
+    &.jv-undefined { color: #e08331 }
+    &.jv-string {
+      color: #42b983;
+      word-break: break-word;
+      white-space: normal;
+    }
+  }
+  .jv-code {
+    .jv-toggle {
+      &:before {
+        padding: 0px 2px;
+        border-radius: 2px;
+      }
+      &:hover {
+        &:before {
+          background: #eee;
+        }
+      }
+    }
+  }
+}

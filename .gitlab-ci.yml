@@ -1,0 +1,36 @@
+# 阶段
+stages:
+  - build
+  - deploy-pro
+  # 缓存 node_modules 减少打包时间，默认会清除 node_modules 和 dist 
+cache:
+  paths:
+    - node_modules/
+ 
+# 拉取项目，打包
+build:
+  stage: build # 阶段名称 对应，stages
+  tags: # runner 标签(注册runner时设置的，可在 admin->runner中查看)
+    - common-runner
+  script: # 脚本（执行的命令行）
+    - cd ${CI_PROJECT_DIR} # 拉取项目的根目录
+    - npm install # 安装依赖
+    - npm run build # 运行构建命令
+  only:
+    - master #拉取分支
+  artifacts:   # 把 dist 的内容传递给下一个阶
+    paths:
+        - dist/
+
+# 部署
+deploy-pro:
+  stage: deploy-pro # 阶段名称 对应，stages
+  tags: # runner 标签(注册runner时设置的)
+    - common-runner
+  only:
+    - master #拉取分支
+  script: # 脚本（执行的命令行）
+    - sshpass -p "${DUANJU_CPS_ADMIN_PASS}" ssh root@${DUANJU_CPS_ADMIN_HOST} -p 8859 'rm -rf /data/publish/duanju_cps_admin; mkdir /data/publish/duanju_cps_admin'
+    - sshpass -p "${DUANJU_CPS_ADMIN_PASS}" scp -P 8859 -r dist root@${DUANJU_CPS_ADMIN_HOST}:/data/publish/duanju_cps_admin
+    - sshpass -p "${DUANJU_CPS_ADMIN_PASS}" ssh root@${DUANJU_CPS_ADMIN_HOST} -p 8859 'rm -rf /data/wwwroot/duanju_cps_admin; mkdir /data/wwwroot/duanju_cps_admin; mv /data/publish/duanju_cps_admin/dist/* /data/wwwroot/duanju_cps_admin;'
+    
