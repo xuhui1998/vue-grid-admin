@@ -97,13 +97,13 @@
             </a-tag>
           </template>
           <template #operation="{ record }">
-            <a-button
+            <!-- <a-button
               v-if="!record.children"
               class="btn-text"
               type="text"
               @click="setMenuAuth(record)"
               >权限</a-button
-            >
+            > -->
             <a-button
               class="btn-text"
               type="text"
@@ -129,7 +129,7 @@
         @on-ok="handleOk"
         @on-cancel="cancel"
       />
-      <AuthListDrawer
+      <!-- <AuthListDrawer
         v-if="state.drawerVisible"
         :visible="state.drawerVisible"
         :title="`${state.record.name}权限`"
@@ -137,7 +137,7 @@
         :width="1000"
         @on-ok="drawerOk"
         @on-cancel="drawerCancel"
-      />
+      /> -->
     </template>
   </Container>
 </template>
@@ -159,9 +159,9 @@
   const MenuModal = defineAsyncComponent(
     () => import('./components/modal.vue')
   );
-  const AuthListDrawer = defineAsyncComponent(
-    () => import('./components/authListModal.vue')
-  );
+  // const AuthListDrawer = defineAsyncComponent(
+  //   () => import('./components/authListModal.vue')
+  // );
 
   const columns = computed<TableColumnData[]>(() => [
     {
