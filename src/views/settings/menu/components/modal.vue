@@ -17,10 +17,10 @@
           <a-col :span="22" data-index="1">
             <a-form-item label="上级菜单" label-col-flex="90px">
               <a-cascader
-                v-model="state.formState.parent_id"
+                v-model="state.formState.pid"
                 placeholder="请选择上级菜单"
                 allow-search
-                :options="[{ label: '一级菜单', id: '0' }, ...state.menuList]"
+                :options="[{ label: '一级菜单', id: 0 }, ...state.menuList]"
                 :field-names="{ value: 'id', label: 'label' }"
                 check-strictly
               ></a-cascader>
@@ -149,13 +149,13 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, shallowRef, reactive, toRefs, watch, onMounted } from 'vue';
+  import { ref, shallowRef, reactive, toRefs, onMounted } from 'vue';
   import { ModalType } from '@/types/global';
   import { getStandardArr } from '@/utils';
   import * as Icons from '@arco-design/web-vue/es/icon';
   import { debounce, cloneDeep } from 'lodash';
-  import { menuListAll } from '@/api/settings';
-  import { tableFormJson } from '../formJson';
+  import { menuListAll, menuDetail } from '@/api/settings';
+  import { tableFormJson, rules } from '../formJson';
   import { MenuConfigProps, MenuItems } from '../types';
 
   const props = withDefaults(
@@ -163,13 +163,12 @@
       visible: boolean;
       title: string;
       type: ModalType;
-      record?: any;
+      record?: Record<string, any> | undefined;
     }>(),
     {
       visible: false,
       title: '',
       type: undefined,
-      record: {},
     }
   );
   const { visible, title, type, record } = toRefs(props);
@@ -199,39 +198,6 @@
   }
   iconFontArrCopy.value = cloneDeep(iconFontArr.value);
 
-  const rules = {
-    parent_id: [
-      {
-        required: true,
-        message: `父级菜单不能为空!`,
-      },
-    ],
-    name: [
-      {
-        required: true,
-        message: `菜单名称不能为空!`,
-      },
-    ],
-    path: [
-      {
-        required: true,
-        message: `菜单路径不能为空!`,
-      },
-    ],
-    sort: [
-      {
-        required: true,
-        message: `排序不能为空!`,
-      },
-    ],
-    component: [
-      {
-        required: true,
-        message: `路由Path为空!`,
-      },
-    ],
-  };
-
   const formRef = ref();
   const drawer = ref();
   const currentIcon = shallowRef();
@@ -248,20 +214,13 @@
   const filterFormJson = () => {
     tableFormJson.forEach((item) => {
       if (item.name === 'component') {
-        item.disabled = state.formState.parent_id === '0';
+        item.disabled = state.formState.pid === 0;
         state.formState.component =
-          // eslint-disable-next-line no-nested-ternary
-          state.formState.parent_id === '0'
+          state.formState.pid === 0
             ? 'Layout'
             : type.value === 'add'
             ? ''
             : state.formState.component;
-      }
-      // if (item.name === 'parent_id') {
-      //   item.options = [{ name: '一级菜单', id: '0' }, ...state.menuList];
-      // }
-      if (item.name === 'menu_ids') {
-        item.options = getStandardArr(state.roleList);
       }
     });
     return tableFormJson;
@@ -317,9 +276,27 @@
     });
   };
 
+  const getMenuDetail = async () => {
+    const { data } = await menuDetail({ id: props.record?.id });
+    const meta = JSON.parse(data.meta);
+    state.formState = {
+      id: data.id,
+      pid: data.pid ? data.pid : 0,
+      name: data.name,
+      path: data.path,
+      component: data.component,
+      order: meta.order,
+      icon: meta.icon,
+      locale: meta.locale,
+      hideInMenu: meta.hideInMenu,
+      ignoreCache: meta.ignoreCache,
+    };
+    state.currentTabKey =
+      data.icon?.substring(0, 4).toLowerCase() === 'icon' ? '1' : '2';
+  };
+
   // 搜索输入防抖
   const handleInput = debounce((value) => {
-    // console.log('debounce =>', value);
     if (state.currentTabKey == '1') {
       searchDefaultIcon(value);
     } else if (state.currentTabKey == '2') {
@@ -357,22 +334,11 @@
     state.menuList = setMenuLabel(data);
   };
 
-  watch(
-    () => record.value,
-    (val) => {
-      if (type.value === 'edit') {
-        state.formState = val;
-        // currentIcon.value = val?.icon;
-        state.currentTabKey =
-          val.icon?.substring(0, 4).toLowerCase() === 'icon' ? '1' : '2';
-        state.formState.sort = Number(state.formState.sort);
-      }
-    },
-    { deep: true, immediate: true }
-  );
-
   onMounted(() => {
     getMenuList();
+    if (type.value === 'edit') {
+      getMenuDetail();
+    }
   });
 </script>
 

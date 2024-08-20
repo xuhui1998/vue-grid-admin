@@ -3,9 +3,7 @@
     <section class="layout-mix-left">
       <Logo></Logo>
       <LeftMenu :menus="leftMenus" :menu-style="{ width: `${appStore.menuWidth}px`, flex: 1 }"></LeftMenu>
-        <div class="version" @click="viewUpdateLog">
-          <a-badge :count="subscriptCount" dot :offset="[5, -2]">v.{{appStore.version}}</a-badge>
-        </div>
+      <Version />
     </section>
     <!-- <MobileLeftMenu v-if="!isDesktop" /> -->
 
@@ -50,6 +48,7 @@
   import { useDevice } from '@/hooks/useDevice'
 
   const PageLayout = defineAsyncComponent(() => import('./page-layout.vue'));
+  const Version = defineAsyncComponent(() => import('./components/version.vue'));
   const MobileLeftMenu = defineAsyncComponent(() => import('./components/mobile-left-menu.vue'));
 
   const route = useRoute()
@@ -188,19 +187,6 @@
     flex-direction: column;
     overflow: hidden;
     position: relative;
-    .version {
-      position: absolute;
-      bottom: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: var(--color-text-3);
-      font-size: 12px;
-      cursor: pointer;
-      &:hover {
-        // color: var(--color-text-2);
-        color: rgb(var(--primary-6));
-      }
-    }
   }
 
   &-right {

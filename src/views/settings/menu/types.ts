@@ -15,30 +15,33 @@ export interface MenuItems {
 }
 
 export class MenuConfigProps {
-  /**  是否一级菜单 1: 是 0: 否 */
-  is_menu = '1';
+  /**  菜单ID */
+  id?: string = '';
 
   /**  菜单路径 */
-  path = '';
+  path: string = '';
 
   /** 菜单名称 */
-  name = '';
+  locale: string = '';
+
+  /** 路由名称 */
+  name: string = '';
 
   /** 页面地址 */
-  component = '';
+  component: string = '';
 
-  /** 父级菜单ID */
-  parent_id? = '0';
+  /** 父级菜单ID 0: 一级菜单 */
+  pid?: number = 0;
 
   /** 排序 */
-  sort = 1 as number | null;
+  order = 1 as number | null;
 
   /** 图标 */
-  icon = '';
+  icon: string = '';
 
   /** 是否隐藏菜单 1: 显示 0: 隐藏 */
-  status = '1';
+  hideInMenu: boolean = false;
 
   /** 是否缓存菜单 1: 是 0: 否 */
-  is_cache = '0';
+  ignoreCache: boolean = false;
 }

@@ -19,7 +19,7 @@
         >
           <div class="menu-wrapper">
             <Menu />
-            <div class="version">v.{{appStore.version}}</div>
+            <Version />
           </div>
         </a-layout-sider>
         <a-drawer
@@ -51,6 +51,7 @@
   import NavBar from '@/components/navbar/index.vue';
   import Menu from '@/components/menu/index.vue';
   import Footer from '@/components/footer/index.vue';
+  import Version from './components/version.vue';
   import TabBar from '@/components/tab-bar/index.vue';
   import usePermission from '@/hooks/permission';
   import useResponsive from '@/hooks/responsive';
@@ -113,6 +114,21 @@
   .layout {
     width: 100%;
     height: 100%;
+
+    &:before{
+      width: 100%;
+      height: 100vh;
+      background: url('@/assets/images/navbar-bg.jpg') no-repeat top,linear-gradient(8deg, #f5f5f5 64%, #7da7f5c7);
+      opacity: .8;
+      bottom: 0;
+      content: "";
+      display: block;
+      left: 0;
+      position: fixed;
+      right: 0;
+      top: 0;
+      z-index: 0;
+    }
   }
 
   .layout-navbar {
@@ -131,6 +147,7 @@
     z-index: 99;
     height: 100%;
     transition: all 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
+    background: transparent;
     &::after {
       position: absolute;
       top: 0;
@@ -152,14 +169,6 @@
     overflow: auto;
     overflow-x: hidden;
     position: relative;
-    .version {
-      position: absolute;
-      bottom: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: var(--color-text-4);
-      font-size: 12px;
-    }
     :deep(.arco-menu) {
       ::-webkit-scrollbar {
         width: 12px;

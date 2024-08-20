@@ -43,7 +43,7 @@ export const menuDetail = (data: any): Promise<ResponseDto<any>> => {
  * @returns
  */
 export const delMenu = (data: any): Promise<ResponseDto<any>> => {
-  return axios.post('/dc/settings/delMenu', data);
+  return axios.post('/grid/settings/delMenu', data);
 };
 
 

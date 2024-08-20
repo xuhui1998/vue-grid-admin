@@ -1,51 +1,19 @@
 import { computed, ref } from 'vue';
-import { useRouter, RouteRecordRaw, RouteRecordNormalized } from 'vue-router';
+import { RouteRecordRaw, RouteRecordNormalized } from 'vue-router';
 import usePermission from '@/hooks/permission';
-import { useAppStore, useUserStore } from '@/store';
-import { useStorage } from '@vueuse/core';
+import { useAppStore } from '@/store';
 import appClientMenus from '@/router/app-menus';
 import { cloneDeep } from 'lodash';
-
-const userStore = useUserStore();
-const router = useRouter();
-
-/**
- * 按userId过滤菜单
- * @param routes 路由配置列表
- * @returns
- */
-const filterRoutersConfig = (
-  routes: RouteRecordNormalized[],
-  userIds: string[]
-) => {
-  const result: any[] = [];
-  if (!userIds.includes(userStore.$state.id as string)) {
-    routes.forEach((route) => {
-      const newRoute = { ...route };
-      if (newRoute.children) {
-        newRoute.children = newRoute.children.filter(
-          (childRoute) => childRoute.name !== 'EpisodeSet'
-        );
-      }
-      result.push(newRoute);
-    });
-    return result;
-  }
-  return routes;
-};
-
 export default function useMenuTree() {
   const permission = usePermission();
   const appStore = useAppStore();
-  // const appRoute = ref(
-  //   appStore.menuFromServer ? appStore.appAsyncMenus : appClientMenus
-  // );
   const appRoute = computed(() => {
     if (appStore.menuFromServer) {
       return appStore.appAsyncMenus;
     }
     return appClientMenus;
   });
+  console.log(appRoute.value);
   const menuTree = computed(() => {
     const copyRouter = cloneDeep(appRoute.value) as RouteRecordNormalized[];
     copyRouter.sort((a: RouteRecordNormalized, b: RouteRecordNormalized) => {
@@ -56,6 +24,7 @@ export default function useMenuTree() {
 
       const collector: any = _routes.map((element) => {
         // no access
+        console.log(!permission.accessRouter(element), 'accessRouter');
         if (!permission.accessRouter(element)) {
           return null;
         }

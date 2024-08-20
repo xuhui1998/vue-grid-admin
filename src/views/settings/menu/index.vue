@@ -152,11 +152,7 @@
   } from '@arco-design/web-vue';
   import { commonApiUrl } from '@/api/common-api-url';
   import SvgIcon from '@/components/svg-icon/index.vue';
-  import {
-    menuDetail,
-    saveMenu,
-    delMenu,
-  } from '@/api/settings';
+  import { saveMenu, delMenu } from '@/api/settings';
   import { ModalType } from '@/types/global';
   import { MenuConfigProps } from './types';
 
@@ -224,17 +220,14 @@
   const state = reactive({
     visible: false,
     type: '' as ModalType,
-    record: {} as Record<string, any>,
+    record: {} as Record<string, any> | undefined,
     drawerVisible: false,
   });
 
-  const openModal = async (type: ModalType, record?: TableData) => {
+  const openModal = async (type: ModalType, record?: Record<string, any>) => {
     state.type = type;
     state.visible = true;
-    if (type === 'edit') {
-      const { data } = await menuDetail({ id: record?.id });
-      state.record = data;
-    }
+    state.record = record;
   };
 
   /**

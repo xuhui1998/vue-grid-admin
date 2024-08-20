@@ -46,7 +46,7 @@
       <Menu v-if="topMenu" />
     </div>
     <ul class="right-side">
-      <li>
+      <!-- <li>
         <a-tooltip
           :content="
             theme === 'light'
@@ -66,7 +66,7 @@
             </template>
           </a-button>
         </a-tooltip>
-      </li>
+      </li> -->
       <li>
         <a-dropdown trigger="click">
           <div style="cursor: pointer">
@@ -147,7 +147,11 @@
     display: flex;
     justify-content: space-between;
     height: 100%;
-    background-color: var(--color-bg-2);
+    background-color: transparent;
+  }
+
+  :deep(.arco-badge-text) {
+    box-shadow: none;
   }
 
   .left-side {
@@ -166,7 +170,7 @@
   .center-side {
     flex: 1;
     margin-left: -40px;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border-2);
   }
 
   .right-side {
@@ -175,7 +179,7 @@
     align-items: center;
     padding-right: 20px;
     list-style: none;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border-2);
     margin: 0;
     :deep(.locale-select) {
       border-radius: 20px;

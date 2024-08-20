@@ -5,7 +5,6 @@
         {{ $t('workplace.welcome') }} {{ userInfo.name }}
       </a-typography-title>
     </a-col>
-    <!-- <a-divider class="panel-border" /> -->
   </a-col>
 </template>
 
