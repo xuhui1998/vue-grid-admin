@@ -179,10 +179,22 @@ export const filterTree: FilterTree = (values, fn) => {
 export const getUrlParams = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const params = {};
+  // eslint-disable-next-line no-restricted-syntax
   for (const [key, value] of urlParams.entries()) {
     params[key] = value;
   }
   return params;
+};
+
+/**
+ * 获取图标类型
+ */
+export const getIconType = (icon: string | undefined) => {
+  if (!icon) return '';
+  if (icon.substring(0, 4).toLowerCase() === 'icon') {
+    return 'arco-icon';
+  }
+  return 'iconfont';
 };
 
 export default null;

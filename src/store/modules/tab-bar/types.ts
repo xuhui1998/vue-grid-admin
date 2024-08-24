@@ -1,5 +1,6 @@
 export interface TagProps {
   title: string;
+  icon?: string;
   name: string;
   fullPath: string;
   query?: any;

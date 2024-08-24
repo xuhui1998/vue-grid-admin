@@ -5,15 +5,26 @@
     @select="actionSelect"
   >
     <span
-      class="arco-tag arco-tag-size-medium arco-tag-checked"
+      class="grid-tab-tag"
       :class="{ 'link-activated': itemData.fullPath === $route.fullPath }"
       @click="goto(itemData)"
     >
+      <span v-if="itemData.icon">
+        <component
+          :is="itemData.icon"
+          v-if="getIconType(itemData.icon) === 'arco-icon'"
+        ></component>
+        <SvgIcon
+          v-if="getIconType(itemData.icon) !== 'arco-icon'"
+          :icon-class="itemData.icon"
+        ></SvgIcon>
+      </span>
       <span class="tag-link">
         {{ itemData.title }}
       </span>
       <span
-        class="arco-icon-hover arco-tag-icon-hover arco-icon-hover-size-medium arco-tag-close-btn"
+        v-if="index > 0"
+        class="grid-icon-close"
         @click.stop="tagClose(itemData, index)"
       >
         <icon-close />
@@ -60,6 +71,7 @@
   import { PropType, computed } from 'vue';
   import { useRouter, useRoute } from 'vue-router';
   import { useTabBarStore } from '@/store';
+  import { getIconType } from '@/utils';
   import type { TagProps } from '@/store/modules/tab-bar/types';
   import { DEFAULT_ROUTE_NAME, REDIRECT_ROUTE_NAME } from '@/router/constants';
 
@@ -168,17 +180,44 @@
 </script>
 
 <style scoped lang="less">
-  .tag-link {
-    color: var(--color-text-2);
-    text-decoration: none;
+  .grid-tab-tag {
+    padding: 0px 12px;
+    cursor: pointer;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    height: 28px;
+    border-radius: 4px;
+    &:hover {
+      background: var(--grid-default-bg-color-7);
+    }
+    .tag-link {
+      color: var(--color-text-2);
+      text-decoration: none;
+    }
+    .grid-icon-close {
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        background: #bfbfbf80;
+      }
+    }
   }
   .link-activated {
     color: rgb(var(--link-6));
+    background: var(--grid-primary-bg-color-7);
+    &:hover {
+      background: var(--grid-primary-bg-color-7);
+    }
     .tag-link {
       color: rgb(var(--link-6));
     }
-    & + .arco-tag-close-btn {
-      color: rgb(var(--link-6));
+    .grid-icon-close:hover {
+      background: #adc6ff80;
     }
   }
   :deep(.arco-dropdown-option-content) {

@@ -51,10 +51,10 @@
   import NavBar from '@/components/navbar/index.vue';
   import Menu from '@/components/menu/index.vue';
   import Footer from '@/components/footer/index.vue';
-  import Version from './components/version.vue';
   import TabBar from '@/components/tab-bar/index.vue';
   import usePermission from '@/hooks/permission';
   import useResponsive from '@/hooks/responsive';
+  import Version from './components/version.vue';
   import PageLayout from './page-layout.vue';
 
   const isInit = ref(false);
@@ -115,13 +115,14 @@
     width: 100%;
     height: 100%;
 
-    &:before{
+    &:before {
       width: 100%;
       height: 100vh;
-      background: url('@/assets/images/navbar-bg.jpg') no-repeat top,linear-gradient(8deg, #f5f5f5 64%, #7da7f5c7);
-      opacity: .8;
+      background: url('@/assets/images/navbar-bg.jpg') no-repeat top,
+        linear-gradient(8deg, #f5f5f5 64%, #7da7f5c7);
+      opacity: 0.8;
       bottom: 0;
-      content: "";
+      content: '';
       display: block;
       left: 0;
       position: fixed;

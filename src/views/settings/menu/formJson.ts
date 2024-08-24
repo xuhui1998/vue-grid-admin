@@ -25,12 +25,14 @@ export const tableFormJson = [
   },
   {
     name: 'component',
-    label: '路由Path',
+    label: '路由path',
     type: 'a-input',
     placeholder: '请输入路由地址',
     disabled: false,
     labelWidth: 90,
     index: 6,
+    prependText: '',
+    appendText: '',
   },
   {
     name: 'order',

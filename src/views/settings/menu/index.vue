@@ -4,10 +4,7 @@
       <Wrapper>
         <template #title>
           <a-space>
-            <a-button
-              type="primary"
-              @click="openModal('add')"
-            >
+            <a-button type="primary" @click="openModal('add')">
               <template #icon><IconPlus /></template>
               添加菜单
             </a-button>
@@ -25,9 +22,7 @@
           show-empty-tree
         >
           <template #menuName="{ record }">
-            <template
-              v-if="record.meta.icon?.substring(0, 4).toLowerCase() === 'icon'"
-            >
+            <template v-if="getIconType(record.meta.icon) === 'arco-icon'">
               <component
                 :is="record.meta?.icon"
                 v-if="record.meta?.icon"
@@ -152,6 +147,7 @@
   } from '@arco-design/web-vue';
   import { commonApiUrl } from '@/api/common-api-url';
   import SvgIcon from '@/components/svg-icon/index.vue';
+  import { getIconType } from '@/utils';
   import { saveMenu, delMenu } from '@/api/settings';
   import { ModalType } from '@/types/global';
   import { MenuConfigProps } from './types';

@@ -80,8 +80,6 @@
   import LoginDto from '@/dto/loginDto';
   import CryptoJS from 'crypto-js';
 
-  const action = import.meta.env.VITE_API_BASE_URL;
-
   const router = useRouter();
   const { t } = useI18n();
   const errorMessage = ref('');
@@ -127,7 +125,7 @@
     if (!errors) {
       setLoading(true);
       try {
-        const { code, data } = await userStore.login(values);
+        const { code } = await userStore.login(values);
         if (code === 200) {
           const { redirect, ...othersQuery } = router.currentRoute.value.query;
           router.push({
@@ -139,15 +137,17 @@
               ...othersQuery,
             },
           });
-          Message.success(t('login.form.login.success'));
+          Message.success('登录成功');
           const { rememberPassword } = loginConfig.value;
           const { username, password } = values;
           // 进行md5加密存储。
           loginConfig.value.username = rememberPassword ? username : '';
-          loginConfig.value.password = rememberPassword ? encrypt(password) : '';
+          loginConfig.value.password = rememberPassword
+            ? encrypt(password)
+            : '';
         }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         errorMessage.value = (err as Error).message;
       } finally {
         setLoading(false);

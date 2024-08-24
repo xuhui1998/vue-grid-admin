@@ -16,11 +16,12 @@ import { TabBarState, TagProps } from './types';
 const formatTag = (route: RouteLocationNormalized): TagProps => {
   const { name, meta, fullPath, query } = route;
   return {
-    title: meta.locale || '',
+    title: meta?.locale || '',
+    icon: meta?.icon,
     name: String(name),
     fullPath,
     query,
-    ignoreCache: meta.ignoreCache,
+    ignoreCache: meta?.ignoreCache,
   };
 };
 
@@ -52,13 +53,14 @@ const useAppStore = defineStore('tabBar', {
   actions: {
     updateTabList(route: RouteLocationNormalized) {
       const store = appStore();
+      if (route.name === 'login') return;
       if (BAN_LIST.includes(route.name as string)) return;
       // 处理服务端菜单serverMenu和本地菜单meta.local名称对不上的问题
       const serverMenu = flatten(store.$state.serverMenu) as RouteRecordRaw[];
       const activeRoute = serverMenu.find((item) => item.name === route.name);
       route.meta = activeRoute?.meta as RouteMeta;
       this.tagList.push(formatTag(route));
-      if (!route.meta.ignoreCache) {
+      if (route.meta && !route.meta?.ignoreCache) {
         this.cacheTabList.add(route.name as string);
       }
     },

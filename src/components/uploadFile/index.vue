@@ -49,11 +49,11 @@
             <span v-if="icon">
               <component
                 :is="icon"
-                v-if="icon.substring(0, 4).toLowerCase() === 'icon'"
+                v-if="getIconType(icon) === 'arco-icon'"
                 :style="iconStyle"
               ></component>
               <SvgIcon
-                v-if="icon.substring(0, 4).toLowerCase() !== 'icon'"
+                v-if="getIconType(icon) !== 'arco-icon'"
                 :icon-class="icon"
                 :style="iconStyle"
               ></SvgIcon>
@@ -73,6 +73,7 @@
   import { ref } from 'vue';
   import { getToken } from '@/utils/auth';
   // import { upload } from '@/api/episode';
+  import { getIconType } from '@/utils';
   import { Message, Modal, FileItem } from '@arco-design/web-vue';
 
   type FileListType = 'text' | 'picture' | 'picture-card';

@@ -5,7 +5,7 @@
   import type { RouteMeta } from 'vue-router';
   import { useAppStore } from '@/store';
   import { listenerRouteChange } from '@/utils/route-listener';
-  import { openWindow, regexUrl } from '@/utils';
+  import { openWindow, regexUrl, getIconType } from '@/utils';
   import useMenuTree from './use-menu-tree';
 
   export default defineComponent({
@@ -95,7 +95,7 @@
             _route.forEach((element) => {
               // This is demo, modify nodes as needed
               const iconStr = element?.meta?.icon;
-              const isDefaultIcon = iconStr?.substring(0, 4).toLowerCase() === 'icon';
+              const isDefaultIcon = getIconType(iconStr) === 'arco-icon';
               // eslint-disable-next-line no-nested-ternary
               const icon = !iconStr
                 ? null

@@ -37,17 +37,11 @@
                   <span v-if="state.formState.icon">
                     <component
                       :is="state.formState.icon"
-                      v-if="
-                        state.formState.icon.substring(0, 4).toLowerCase() ===
-                        'icon'
-                      "
+                      v-if="getIconType(state.formState.icon) === 'arco-icon'"
                       :size="18"
                     ></component>
                     <SvgIcon
-                      v-if="
-                        state.formState.icon.substring(0, 4).toLowerCase() !==
-                        'icon'
-                      "
+                      v-if="getIconType(state.formState.icon) !== 'arco-icon'"
                       :icon-class="state.formState.icon"
                       :size="18"
                     ></SvgIcon>
@@ -80,17 +74,11 @@
               <span v-if="state.formState.icon">
                 <component
                   :is="state.formState.icon"
-                  v-if="
-                    state.formState.icon.substring(0, 4).toLowerCase() ===
-                    'icon'
-                  "
+                  v-if="getIconType(state.formState.icon) === 'arco-icon'"
                   :size="18"
                 ></component>
                 <SvgIcon
-                  v-if="
-                    state.formState.icon.substring(0, 4).toLowerCase() !==
-                    'icon'
-                  "
+                  v-if="getIconType(state.formState.icon) !== 'arco-icon'"
                   :icon-class="state.formState.icon"
                   :size="18"
                 ></SvgIcon>
@@ -151,7 +139,7 @@
 <script setup lang="ts">
   import { ref, shallowRef, reactive, toRefs, onMounted } from 'vue';
   import { ModalType } from '@/types/global';
-  import { getStandardArr } from '@/utils';
+  import { getIconType } from '@/utils';
   import * as Icons from '@arco-design/web-vue/es/icon';
   import { debounce, cloneDeep } from 'lodash';
   import { menuListAll, menuDetail } from '@/api/settings';
@@ -171,13 +159,12 @@
       type: undefined,
     }
   );
-  const { visible, title, type, record } = toRefs(props);
+  const { visible, title, type } = toRefs(props);
 
   const IconComponents = shallowRef<any[]>([]);
   const IconComponentsCopy = shallowRef<any[]>([]);
   const iconFontArr = ref<string[]>([]);
   const iconFontArrCopy = ref<string[]>([]);
-  // eslint-disable-next-line no-restricted-syntax
   for (const [key, component] of Object.entries(Icons)) {
     IconComponents.value.push(component);
   }
@@ -192,7 +179,6 @@
   };
 
   const modules = import.meta.glob('@/assets/icons/*.svg');
-  // eslint-disable-next-line no-restricted-syntax
   for (const [key, component] of Object.entries(modules)) {
     iconFontArr.value.push(extractFileName(key));
   }
@@ -215,6 +201,8 @@
     tableFormJson.forEach((item) => {
       if (item.name === 'component') {
         item.disabled = state.formState.pid === 0;
+        item.prependText = state.formState.pid != 0 ? '@/views' : '';
+        item.appendText = state.formState.pid != 0 ? '.vue' : '';
         state.formState.component =
           state.formState.pid === 0
             ? 'Layout'
@@ -291,8 +279,7 @@
       hideInMenu: meta.hideInMenu,
       ignoreCache: meta.ignoreCache,
     };
-    state.currentTabKey =
-      data.icon?.substring(0, 4).toLowerCase() === 'icon' ? '1' : '2';
+    state.currentTabKey = getIconType(data.icon) === 'arco-icon' ? '1' : '2';
   };
 
   // 搜索输入防抖
@@ -305,7 +292,7 @@
   }, 500);
 
   const openIconDrawer = () => {
-    state.drawerVisible = true
+    state.drawerVisible = true;
     state.currentTabKey = '1';
   };
 

@@ -53,6 +53,9 @@
             model-event="input"
             @change="change($event, field.name)"
           >
+            <template v-if="field.prependText" #prepend>
+              {{ field.prependText }}
+            </template>
             <template v-if="field.appendText" #append>
               {{ field.appendText }}
             </template>

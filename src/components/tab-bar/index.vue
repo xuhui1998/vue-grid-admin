@@ -35,8 +35,9 @@
   const tagList = computed(() => {
     return tabBarStore.getTabList;
   });
+  console.log(tagList.value);
   const offsetTop = computed(() => {
-    return appStore.navbar ? 60 : 0;
+    return appStore.navbar ? 58 : 0;
   });
 
   watch(
@@ -46,10 +47,7 @@
     }
   );
   listenerRouteChange((route: RouteLocationNormalized) => {
-    if (
-      !route.meta.noAffix &&
-      !tagList.value.some((tag) => tag.fullPath === route.fullPath)
-    ) {
+    if (!tagList.value.some((tag) => tag.fullPath === route.fullPath)) {
       tabBarStore.updateTabList(route);
     }
   }, true);
@@ -62,21 +60,20 @@
 <style scoped lang="less">
   .tab-bar-container {
     position: relative;
-    background-color: var(--color-bg-2);
+    height: 36px;
     .tab-bar-box {
       display: flex;
-      padding: 0 0 0 20px;
-      background-color: var(--color-bg-2);
-      border-bottom: 1px solid var(--color-border);
+      padding: 5px 8px;
       .tab-bar-scroll {
-        height: 32px;
         flex: 1;
         overflow: hidden;
         .tags-wrap {
-          padding: 4px 0;
-          height: 48px;
           white-space: nowrap;
           overflow-x: auto;
+          height: 36px;
+          gap: 5px;
+          display: flex;
+          align-items: center;
 
           :deep(.arco-tag) {
             display: inline-flex;
