@@ -7,9 +7,6 @@
     <div class="header">
       <slot name="header"></slot>
     </div>
-    <a-card v-if="props.statistic" class="statistic">
-      <slot name="statistic"></slot>
-    </a-card>
     <slot name="form"></slot>
     <slot name="buttons"></slot>
     <slot name="content"></slot>
@@ -33,8 +30,6 @@
     })
   })
 
-  type SpaceSize = number | 'mini' | 'small' | 'medium' | 'large';
-  const size = ref<SpaceSize>('medium');
   const props = defineProps({
     breadcrumb: {
       type: Array,
@@ -55,6 +50,7 @@
   .container {
     padding: 8px;
     position: relative;
+    height: 100%;
   }
   .arco-space {
     margin-bottom: 10px;
@@ -65,7 +61,4 @@
       border: none;
     }
   }
-  // .statistic {
-  //   padding-bottom: 10px;
-  // }
 </style>
