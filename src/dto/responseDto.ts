@@ -12,7 +12,7 @@ export default class ResponseDto<T> {
   /**
    * 信息
    */
-   = '';
+  message = '';
 
   /**
    * 数据

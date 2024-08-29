@@ -11,7 +11,14 @@
     <!-- <MobileLeftMenu v-if="!isDesktop" /> -->
 
     <section class="layout-mix-right">
-      <header :class="['header', 'flex', 'flex-row-center']">
+      <header
+        :class="[
+          'header',
+          'flex',
+          'flex-row-center',
+          { 'tab-in-header': appStore.tabBar },
+        ]"
+      >
         <div class="collapse">
           <div
             :style="{
@@ -277,6 +284,11 @@
         cursor: pointer;
       }
     }
+  }
+  .tab-in-header {
+    border-bottom: 1px solid #dee2e6;
+    box-shadow: 0 1px 2px rgba(0, 21, 41, 1);
+    box-shadow: none;
   }
   .layout-content {
     min-height: calc(100vh - 60px);

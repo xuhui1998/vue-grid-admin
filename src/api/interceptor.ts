@@ -1,19 +1,8 @@
 import axios from 'axios';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Message, Modal } from '@arco-design/web-vue';
-import { getToken, setToken, isLogin, clearToken } from '@/utils/auth';
+import { getToken, setToken, clearToken } from '@/utils/auth';
 import ResponseDto from '@/dto/responseDto';
-
-declare module 'axios' {
-  interface AxiosResponse<T = any, D = any> {
-    status: number;
-    code: number;
-    success: boolean;
-    message: string;
-    data: T;
-  }
-  export function create(config?: AxiosRequestConfig): AxiosInstance;
-}
 
 if (import.meta.env.VITE_API_BASE_URL) {
   axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
@@ -51,6 +40,10 @@ axios.interceptors.response.use(
     }
     if (data.code === 401 || data.code === 402) {
       if (status) {
+        // Message.warning({
+        //   content: data.message || '登录已过期，请重新登录',
+        //   duration: 3 * 1000,
+        // });
         Modal.error({
           title: '系统提示',
           content: data.message,
@@ -65,10 +58,10 @@ axios.interceptors.response.use(
         });
       }
       status = false;
-      let timeout = setTimeout(() => {
+      const timeout = setTimeout(() => {
         status = true;
         clearTimeout(timeout);
-      }, 1500)
+      }, 1500);
     } else if (data.code === 404 || data.code === 400) {
       Message.error({
         content: data.message || '系统错误',

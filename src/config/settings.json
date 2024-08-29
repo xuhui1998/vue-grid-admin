@@ -11,11 +11,13 @@
   "menuWidth": 220,
   "globalSettings": false,
   "device": "desktop",
+  "transitionName": "fade-slide",
   "tabBar": true,
   "menuFromServer": true,
+  "layoutFullScreen": false,
   "serverMenu": [],
   "menuAccordion": false,
   "layout": "mix",
-  "projectName": "Grid-Admin",
+  "projectName": "Grid Admin",
   "version": "1.0.0"
 }

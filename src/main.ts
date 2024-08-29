@@ -15,6 +15,7 @@ import '@/assets/style/global.less';
 import '@/assets/style/design.less';
 import '@/assets/style/jv-light.less';
 import '@/assets/style/grid-design.less';
+import '@/assets/style/transition.less';
 // import '@/assets/style/index.less';
 import '@/api/interceptor';
 // eslint-disable-next-line import/no-unresolved

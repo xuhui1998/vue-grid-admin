@@ -184,7 +184,7 @@
     padding: 0px 12px;
     cursor: pointer;
     display: flex;
-    gap: 6px;
+    gap: 5px;
     align-items: center;
     height: 28px;
     border-radius: 4px;
@@ -195,15 +195,24 @@
       color: var(--color-text-2);
       text-decoration: none;
     }
+    &:hover .grid-icon-close {
+      padding: 2px;
+      .arco-icon {
+        width: 1em;
+      }
+    }
     .grid-icon-close {
       border-radius: 50%;
-      width: 18px;
-      height: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.3s;
       &:hover {
         background: #bfbfbf80;
+      }
+      .arco-icon {
+        width: 0;
+        transition: all 0.2s;
       }
     }
   }

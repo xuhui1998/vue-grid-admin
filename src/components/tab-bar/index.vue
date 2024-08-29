@@ -12,7 +12,11 @@
             />
           </div>
         </div>
-        <div class="tag-bar-operation"></div>
+        <div class="tag-bar-operation">
+          <a-space>
+            <IconFullscreen class="grid-btn" />
+          </a-space>
+        </div>
       </div>
     </a-affix>
   </div>
@@ -35,7 +39,6 @@
   const tagList = computed(() => {
     return tabBarStore.getTabList;
   });
-  console.log(tagList.value);
   const offsetTop = computed(() => {
     return appStore.navbar ? 58 : 0;
   });
@@ -60,17 +63,17 @@
 <style scoped lang="less">
   .tab-bar-container {
     position: relative;
-    height: 36px;
+    box-shadow: 0px 0 8px rgb(0 21 41 / 11%);
     .tab-bar-box {
       display: flex;
-      padding: 5px 8px;
+      padding: 4px 12px;
       .tab-bar-scroll {
         flex: 1;
         overflow: hidden;
         .tags-wrap {
           white-space: nowrap;
           overflow-x: auto;
-          height: 36px;
+          height: 34px;
           gap: 5px;
           display: flex;
           align-items: center;
@@ -91,8 +94,10 @@
     }
 
     .tag-bar-operation {
-      width: 100px;
       height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 </style>
