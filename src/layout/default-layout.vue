@@ -1,6 +1,13 @@
 <template>
   <a-layout class="layout" :class="{ mobile: appStore.hideMenu }">
-    <div v-if="navbar" class="layout-navbar">
+    <div
+      v-if="navbar"
+      :class="[
+        'layout-navbar',
+        'transition-all-300',
+        { 'layout-navbar-hide': appStore.layoutFullscreen },
+      ]"
+    >
       <NavBar />
     </div>
     <a-layout>
@@ -8,7 +15,10 @@
         <a-layout-sider
           v-if="renderMenu"
           v-show="!hideMenu"
-          class="layout-sider"
+          :class="[
+            'layout-sider',
+            { 'layout-sider-hide': appStore.layoutFullscreen },
+          ]"
           breakpoint="xl"
           :collapsed="collapsed"
           :collapsible="true"
@@ -66,7 +76,9 @@
   useResponsive(true);
   const navbarHeight = `60px`;
   const navbar = computed(() => appStore.navbar);
-  const renderMenu = computed(() => appStore.menu && !appStore.topMenu);
+  const renderMenu = computed(
+    () => appStore.menu && appStore.layout === 'left'
+  );
   const hideMenu = computed(() => appStore.hideMenu);
   const footer = computed(() => appStore.footer);
   const menuWidth = computed(() => {
@@ -76,11 +88,20 @@
     return appStore.menuCollapse;
   });
   const paddingStyle = computed(() => {
-    const paddingLeft =
-      renderMenu.value && !hideMenu.value
-        ? { paddingLeft: `${menuWidth.value}px` }
-        : {};
-    const paddingTop = navbar.value ? { paddingTop: navbarHeight } : {};
+    // const paddingLeft =
+    //   renderMenu.value && !hideMenu.value
+    //     ? { paddingLeft: `${menuWidth.value}px` }
+    //     : {};
+    let paddingLeft = {};
+    let paddingTop = {};
+    if (renderMenu.value && !hideMenu.value) {
+      paddingLeft = { paddingLeft: `${menuWidth.value}px` };
+    }
+    paddingTop = navbar.value ? { paddingTop: navbarHeight } : {};
+    if (appStore.layoutFullscreen) {
+      paddingLeft = { paddingLeft: 0 };
+      paddingTop = { paddingTop: 0 };
+    }
     return { ...paddingLeft, ...paddingTop };
   });
   const setCollapsed = (val: boolean) => {
@@ -108,8 +129,7 @@
 </script>
 
 <style scoped lang="less">
-  @nav-size-height: 60px;
-  @layout-max-width: 1100px;
+  @import url('@/assets/style/grid-design.less');
 
   .layout {
     width: 100%;
@@ -138,7 +158,11 @@
     left: 0;
     z-index: 100;
     width: 100%;
-    height: @nav-size-height;
+    height: @navbar-height;
+  }
+  .layout-navbar-hide {
+    height: 0 !important;
+    overflow: hidden;
   }
 
   .layout-sider {
@@ -149,6 +173,7 @@
     height: 100%;
     transition: all 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
     background: transparent;
+    box-shadow: @layout-shadow;
     &::after {
       position: absolute;
       top: 0;
@@ -163,6 +188,10 @@
     > :deep(.arco-layout-sider-children) {
       overflow-y: hidden;
     }
+  }
+  .layout-sider-hide {
+    width: 0 !important;
+    overflow: hidden;
   }
 
   .menu-wrapper {

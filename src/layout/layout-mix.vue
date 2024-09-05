@@ -1,6 +1,13 @@
 <template>
-  <div class="layout-mix">
-    <section class="layout-mix-left">
+  <div class="layout-mix transition-all-300">
+    <section
+      :class="[
+        'layout-mix-left',
+        'transition-all-300',
+        { 'layout-mix-left-hide': appStore.layoutFullscreen },
+      ]"
+      :style="{ width: `${appStore.menuWidth}px` }"
+    >
       <Logo></Logo>
       <LeftMenu
         :menus="leftMenus"
@@ -13,10 +20,12 @@
     <section class="layout-mix-right">
       <header
         :class="[
-          'header',
+          'layout-navbar',
           'flex',
           'flex-row-center',
-          { 'tab-in-header': appStore.tabBar },
+          'transition-all-300',
+          { 'tab-navbar': appStore.tabBar },
+          { 'layout-navbar-hide': appStore.layoutFullscreen },
         ]"
       >
         <div class="collapse">
@@ -44,7 +53,7 @@
         </a-menu>
         <NavBar />
       </header>
-      <a-layout class="layout-content">
+      <a-layout class="layout-content transition-all-300">
         <TabBar v-if="appStore.tabBar" />
         <a-layout-content>
           <PageLayout />
@@ -67,7 +76,8 @@
   import { openWindow, filterTree } from '@/utils';
   import { useAppStore } from '@/store';
   import { useDevice } from '@/hooks/useDevice';
-  import NavBar from './components/navbar.vue';
+  // import NavBar from './components/navbar.vue';
+  import NavBar from '@/components/navbar/index.vue';
   import Logo from './components/logo.vue';
   import LeftMenu from './components/left-menu.vue';
 
@@ -98,10 +108,6 @@
   // 顶部一级菜单
   const topMenus = ref<RouteRecordRaw[]>([]);
   topMenus.value = JSON.parse(JSON.stringify(menuRoutes));
-
-  // const getMenuIcon = (item: RouteRecordRaw, key: 'svgIcon' | 'icon') => {
-  //   return item.meta?.[key] || item.children?.[0].meta?.[key]
-  // }
 
   const toggleDrawerMenu = () => {
     appStore.collapseMenu();
@@ -176,6 +182,8 @@
 </script>
 
 <style lang="less" scoped>
+  @import url('@/assets/style/grid-design.less');
+
   :deep(.arco-menu-pop) {
     white-space: nowrap;
   }
@@ -217,13 +225,15 @@
     overflow: hidden;
 
     &-left {
-      // border-right: 1px solid var(--color-border);
-      box-shadow: 0px 0 8px rgb(0 21 41 / 11%);
-      // background-color: var(--color-bg-1);
+      box-shadow: @layout-shadow;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       position: relative;
+    }
+    &-left-hide {
+      width: 0 !important;
+      overflow: hidden;
     }
 
     &-right {
@@ -250,12 +260,12 @@
     }
   }
 
-  .header {
-    padding: 0;
+  .layout-navbar {
+    height: @navbar-height;
     color: var(--color-text-1);
     // background: var(--color-bg-1);
     // border-bottom: 1px solid var(--color-border);
-    box-shadow: 0px 0 8px rgb(0 21 41 / 11%);
+    box-shadow: @layout-shadow;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -285,7 +295,11 @@
       }
     }
   }
-  .tab-in-header {
+  .layout-navbar-hide {
+    height: 0;
+    overflow: hidden;
+  }
+  .tab-navbar {
     border-bottom: 1px solid #dee2e6;
     box-shadow: 0 1px 2px rgba(0, 21, 41, 1);
     box-shadow: none;
@@ -293,8 +307,6 @@
   .layout-content {
     min-height: calc(100vh - 60px);
     overflow-y: auto;
-    // background-color: var(--color-fill-2);
-    transition: padding 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
   }
   .arco-menu-selected,
   .arco-menu-item {

@@ -4,12 +4,12 @@
 </template>
 
 <script setup lang="ts">
-import LayoutDefault from './default-layout.vue'
-import LayoutMix from './layout-mix.vue'
-import { useAppStore } from '@/store'
+  import { useAppStore } from '@/store';
+  import LayoutDefault from './default-layout.vue';
+  import LayoutMix from './layout-mix.vue';
 
-defineOptions({ name: 'Layout' })
-const appStore = useAppStore()
+  defineOptions({ name: 'Layout' });
+  const appStore = useAppStore();
 </script>
 
 <style lang="less" scoped></style>

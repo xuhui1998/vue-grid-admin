@@ -1,49 +1,22 @@
 <template>
   <div class="navbar">
     <div
+      v-if="appStore.layout !== 'mix'"
       class="left-side"
-      :style="{ paddingLeft: (menuCollapse ? 12 : 20) + 'px' }"
+      :style="{ width: !menuCollapse ? `${appStore.menuWidth}px` : '48px' }"
     >
-      <a-space
-        :style="{
-          width: (menuCollapse ? 48 : appStore.menuWidth - 8) - 20 + 'px',
-        }"
-      >
-        <img
-          alt="logo"
-          src="../../assets/images/logo.png"
-          :width="menuCollapse ? 24 : 35"
-        />
-        <a-typography-title
-          :style="{ margin: 0, fontSize: '18px', fontFamily: 'syht Regular' }"
-          :heading="5"
-          style="white-space: nowrap"
-        >
-          <a-badge
-            text="beta"
-            :offset="[20, -4]"
-            :dot-style="{ fontSize: '10px', borderBottomLeftRadius: 0 }"
-          >
-            {{ appStore.projectName }}
-          </a-badge>
-        </a-typography-title>
-        <icon-menu-fold
-          v-if="!topMenu && appStore.device === 'mobile'"
-          style="font-size: 22px; cursor: pointer"
-          @click="toggleDrawerMenu"
-        />
-      </a-space>
-      <div class="collapsez">
-        <div
-          @click="toggleDrawerMenu"
-          :style="{ transform: menuCollapse ? 'rotate(180deg)' : '' }"
-        >
-          <icon-menu-fold />
-        </div>
-      </div>
+      <Logo />
     </div>
-    <div class="center-side">
+    <div v-if="appStore.layout !== 'mix'" class="center-side">
       <Menu v-if="topMenu" />
+      <div v-else class="flex">
+        <div class="collapse grid-btn ml-10 mr-10" @click="toggleDrawerMenu">
+          <div :style="{ transform: menuCollapse ? 'rotate(180deg)' : '' }">
+            <icon-menu-fold :size="18" />
+          </div>
+        </div>
+        <Breadcrumb />
+      </div>
     </div>
     <ul class="right-side">
       <!-- <li>
@@ -70,10 +43,7 @@
       <li>
         <a-dropdown trigger="click">
           <div style="cursor: pointer">
-            <a-avatar
-              :size="32"
-              :style="{ marginRight: '8px' }"
-            >
+            <a-avatar :size="32" :style="{ marginRight: '8px' }">
               <img v-if="avatar" alt="avatar" :src="avatar" />
               <IconUser v-else />
             </a-avatar>
@@ -102,6 +72,8 @@
   import MyStorage from '@/utils/storage';
   import useUser from '@/hooks/user';
   import Menu from '@/components/menu/index.vue';
+  import Breadcrumb from '@/components/breadcrumb/index.vue';
+  import Logo from '@/layout/components/logo.vue';
 
   const appStore = useAppStore();
   const userStore = useUserStore();
@@ -119,7 +91,7 @@
   const theme = computed(() => {
     return appStore?.theme;
   });
-  const topMenu = computed(() => appStore.topMenu && appStore.menu);
+  const topMenu = computed(() => appStore.layout === 'top' && appStore.menu);
   const menuCollapse = computed(() => appStore.menuCollapse);
   const isDark = useDark({
     selector: 'body',
@@ -157,19 +129,14 @@
   .left-side {
     display: flex;
     align-items: center;
-    padding-left: 20px;
+    justify-content: center;
     transition: width 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
-    img,
-    :deep(.arco-space.arco-space-horizontal.arco-space-align-center) {
-      transition: width 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
-      overflow-x: hidden;
-      height: 100%;
-    }
   }
 
   .center-side {
     flex: 1;
-    margin-left: -40px;
+    display: flex;
+    align-items: center;
     border-bottom: 1px solid var(--color-border-2);
   }
 
@@ -216,37 +183,8 @@
       margin-top: 0;
     }
   }
-  .collapsez {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    position: relative;
-    > div {
-      margin-left: 18px;
-      color: var(--color-text-3);
-      background-color: var(--color-fill-1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 30px;
-      height: 30px;
-      border-radius: var(--border-radius-small);
-      cursor: pointer;
-      svg {
-        width: 1.2em;
-        height: 1.2em;
-      }
-    }
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 8px;
-      display: block;
-      width: 1px;
-      height: 100%;
-      background-color: var(--color-border);
-    }
+  .collapse {
+    width: 20px;
+    height: 20px;
   }
 </style>

@@ -31,10 +31,6 @@
       </span>
     </span>
     <template #content>
-      <a-doption :disabled="disabledReload" :value="Eaction.reload">
-        <icon-refresh />
-        <span>重新加载</span>
-      </a-doption>
       <a-doption
         class="sperate-line"
         :disabled="disabledCurrent"
@@ -77,7 +73,6 @@
 
   // eslint-disable-next-line no-shadow
   enum Eaction {
-    reload = 'reload',
     current = 'current',
     left = 'left',
     right = 'right',
@@ -163,15 +158,6 @@
       });
       tabBarStore.freshTabList(filterList);
       router.push({ name: itemData.name });
-    } else if (value === Eaction.reload) {
-      tabBarStore.deleteCache(itemData);
-      await router.push({
-        name: REDIRECT_ROUTE_NAME,
-        params: {
-          path: route.fullPath,
-        },
-      });
-      tabBarStore.addCache(itemData.name);
     } else {
       tabBarStore.resetTabList();
       router.push({ name: DEFAULT_ROUTE_NAME });

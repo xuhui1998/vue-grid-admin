@@ -188,6 +188,18 @@
 .arco-menu {
   background-color: transparent !important;
 
+  .arco-menu-inner {
+    overflow: hidden;
+    .arco-menu-overflow-wrap, .arco-menu-pop, .arco-menu-item {
+      display: flex;
+      align-items: center;
+    }
+    .arco-menu-icon {
+      display: flex;
+      margin-right: 10px;
+    }
+  }
+
   .arco-menu-inline-header {
     background-color: transparent !important;
   }
@@ -212,4 +224,21 @@
 
 .arco-spin {
   width: 100%;
+}
+
+.arco-tooltip-content {
+  border-radius: 4px;
+}
+
+.arco-dropdown {
+  border-radius: 6px;
+  .arco-dropdown-list {
+    padding: 0 6px;
+    .arco-dropdown-option {
+      height: 30px;
+      line-height: 30px;
+      font-size: 13px;
+      border-radius: 6px;
+    }
+  }
 }

@@ -1,6 +1,5 @@
 <script lang="tsx">
   import { defineComponent, ref, h, compile, computed } from 'vue';
-  import { useI18n } from 'vue-i18n';
   import { useRoute, useRouter, RouteRecordRaw } from 'vue-router';
   import type { RouteMeta } from 'vue-router';
   import { useAppStore } from '@/store';
@@ -11,7 +10,6 @@
   export default defineComponent({
     emit: ['collapse'],
     setup() {
-      const { t } = useI18n();
       const appStore = useAppStore();
       const router = useRouter();
       const route = useRoute();
@@ -26,7 +24,7 @@
         },
       });
 
-      const topMenu = computed(() => appStore.topMenu);
+      const topMenu = computed(() => appStore.layout === 'top');
       const openKeys = ref<string[]>([]);
       const selectedKey = ref<string[]>([]);
 
@@ -134,7 +132,6 @@
       };
 
       return () => (
-        // appStore.device !== 'mobile'
         <a-menu
           mode={topMenu.value ? 'horizontal' : 'vertical'}
           v-model:collapsed={collapsed.value}

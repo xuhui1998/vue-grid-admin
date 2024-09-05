@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- <Breadcrumb :items="breadcrumb" /> -->
     <slot name="back">
       <div class="back"></div>
     </slot>
@@ -13,38 +12,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-  import { ref, computed } from 'vue';
-  import { useAppStore } from '@/store';
-  import { useRoute } from 'vue-router';
-  import { toTreeArray } from 'xe-utils';
-
-  const appStore = useAppStore();
-  const route = useRoute();
-  const treeArr = toTreeArray(appStore.serverMenu)
-
-  const breadcrumb = computed(() => {
-    return route.matched.map((route) => {
-      const currentRoute = treeArr.find((item) => item.name === route.name)
-      return currentRoute?.meta?.locale
-    })
-  })
-
-  const props = defineProps({
-    breadcrumb: {
-      type: Array,
-      default: () => [],
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    statistic: {
-      type: Boolean,
-      default: false,
-    },
-  });
-</script>
+<script setup lang="ts"></script>
 
 <style lang="less" scoped>
   .container {

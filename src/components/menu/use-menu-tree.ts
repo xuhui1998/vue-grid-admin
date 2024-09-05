@@ -13,7 +13,6 @@ export default function useMenuTree() {
     }
     return appClientMenus;
   });
-  console.log(appRoute.value);
   const menuTree = computed(() => {
     const copyRouter = cloneDeep(appRoute.value) as RouteRecordNormalized[];
     copyRouter.sort((a: RouteRecordNormalized, b: RouteRecordNormalized) => {
@@ -24,7 +23,6 @@ export default function useMenuTree() {
 
       const collector: any = _routes.map((element) => {
         // no access
-        console.log(!permission.accessRouter(element), 'accessRouter');
         if (!permission.accessRouter(element)) {
           return null;
         }

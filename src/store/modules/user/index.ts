@@ -18,6 +18,7 @@ const useUserStore = defineStore('user', {
     role_id: '',
     role_name: '',
     role: '',
+    avatar: '',
     auth_user_code: [],
   }),
 
