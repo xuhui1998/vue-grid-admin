@@ -3,6 +3,7 @@
     :mode="mode"
     :selected-keys="activeMenu"
     :open-keys="defaultOpenKeys"
+    class="grid-left-menu"
     :auto-open-selected="autoOpenSelected"
     :accordion="appStore.menuAccordion"
     :breakpoint="appStore.layout === 'mix' ? 'xl' : undefined"

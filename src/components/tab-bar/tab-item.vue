@@ -204,9 +204,9 @@
   }
   .link-activated {
     color: rgb(var(--link-6));
-    background: var(--grid-primary-bg-color-7);
+    background: var(--grid-tab-bg);
     &:hover {
-      background: var(--grid-primary-bg-color-7);
+      background: var(--grid-tab-bg);
     }
     .tag-link {
       color: rgb(var(--link-6));
@@ -218,14 +218,6 @@
   :deep(.arco-dropdown-option-content) {
     span {
       margin-left: 10px;
-    }
-  }
-  .arco-dropdown-open {
-    .tag-link {
-      color: rgb(var(--danger-6));
-    }
-    .arco-tag-close-btn {
-      color: rgb(var(--danger-6));
     }
   }
   .sperate-line {

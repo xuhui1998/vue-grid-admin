@@ -6,7 +6,9 @@
         'transition-all-300',
         { 'layout-mix-left-hide': appStore.layoutFullscreen },
       ]"
-      :style="{ width: `${appStore.menuWidth}px` }"
+      :style="{
+        width: !appStore.menuCollapse ? `${appStore.menuWidth}px` : '48px',
+      }"
     >
       <Logo></Logo>
       <LeftMenu
@@ -28,18 +30,18 @@
           { 'layout-navbar-hide': appStore.layoutFullscreen },
         ]"
       >
-        <div class="collapse">
+        <div class="collapse grid-btn ml-10" @click="toggleDrawerMenu">
           <div
             :style="{
               transform: appStore.menuCollapse ? 'rotate(180deg)' : '',
             }"
-            @click="toggleDrawerMenu"
           >
-            <icon-menu-fold />
+            <icon-menu-fold :size="18" />
           </div>
         </div>
         <a-menu
           mode="horizontal"
+          class="grid-top-menu"
           :selected-keys="activeMenu"
           :auto-open-selected="false"
           :trigger-props="{ animationName: 'slide-dynamic-origin' }"
@@ -64,7 +66,14 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, watch, nextTick, onMounted, defineAsyncComponent } from 'vue';
+  import {
+    ref,
+    watch,
+    nextTick,
+    onMounted,
+    provide,
+    defineAsyncComponent,
+  } from 'vue';
   import {
     useRoute,
     useRouter,
@@ -73,10 +82,9 @@
   } from 'vue-router';
   import { searchTree } from 'xe-utils';
   import MyStorage from '@/utils/storage';
-  import { openWindow, filterTree } from '@/utils';
+  import { filterTree } from '@/utils';
   import { useAppStore } from '@/store';
   import { useDevice } from '@/hooks/useDevice';
-  // import NavBar from './components/navbar.vue';
   import NavBar from '@/components/navbar/index.vue';
   import Logo from './components/logo.vue';
   import LeftMenu from './components/left-menu.vue';
@@ -99,10 +107,19 @@
   const { isDesktop } = useDevice();
 
   const subscriptCount = ref<number>(1);
+  /**
+   * 顶部一级菜单选中的菜单
+   */
+  const activeMenu = ref<(RouteRecordName | undefined)[]>();
+  const leftMenus = ref<RouteRecordRaw[]>([]);
   // 过滤是菜单的路由
   const menuRoutes = filterTree(
     appStore.serverMenu,
     (i) => i.meta?.hideInMenu === false
+  );
+
+  const cloneMenuRoutes: RouteRecordRaw[] = JSON.parse(
+    JSON.stringify(menuRoutes)
   );
 
   // 顶部一级菜单
@@ -112,6 +129,7 @@
   const toggleDrawerMenu = () => {
     appStore.collapseMenu();
   };
+  provide('toggleDrawerMenu', toggleDrawerMenu);
 
   const getFirstMenu = (menu: RouteRecordRaw[]) => {
     const firstRoute = menu[0];
@@ -121,27 +139,6 @@
     return firstRoute.name;
   };
 
-  const onMenuItemClick = (name: string) => {
-    const obj = topMenus.value.find((i) => i.name === name);
-    getLeftMenus(obj?.name);
-
-    if (leftMenus.value) {
-      const firstMenuName = getFirstMenu(leftMenus.value);
-      router.push({ name: firstMenuName });
-    } else {
-      router.push({ name: 'Workplace' });
-      activeMenu.value = ['Dashboard'];
-    }
-  };
-
-  const cloneMenuRoutes: RouteRecordRaw[] = JSON.parse(
-    JSON.stringify(menuRoutes)
-  );
-  /**
-   * 顶部一级菜单选中的菜单
-   */
-  const activeMenu = ref<(RouteRecordName | undefined)[]>();
-  const leftMenus = ref<RouteRecordRaw[]>([]);
   /**
    * 获取左侧菜单
    */
@@ -155,6 +152,18 @@
     leftMenus.value = obj ? (obj.children as RouteRecordRaw[]) : [];
   }
 
+  const onMenuItemClick = (name: string) => {
+    const obj = topMenus.value.find((i) => i.name === name);
+    getLeftMenus(obj?.name);
+
+    if (leftMenus.value) {
+      const firstMenuName = getFirstMenu(leftMenus.value);
+      router.push({ name: firstMenuName });
+    } else {
+      router.push({ name: 'Workplace' });
+      activeMenu.value = ['Dashboard'];
+    }
+  };
   /**
    * 系统更新日志
    */
@@ -274,25 +283,8 @@
     z-index: 100;
     width: 100%;
     .collapse {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      position: relative;
-      // background-color: var(--color-menu-light-bg);
-      > div {
-        margin-left: 16px;
-        color: var(--color-text-3);
-        // background-color: var(--color-fill-1);
-        background-color: rgba(255, 255, 255, 0.33);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-        border-radius: var(--border-radius-small);
-        cursor: pointer;
-      }
+      width: 20px;
+      height: 20px;
     }
   }
   .layout-navbar-hide {

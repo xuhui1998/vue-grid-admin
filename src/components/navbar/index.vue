@@ -41,8 +41,18 @@
         </a-tooltip>
       </li> -->
       <li>
+        <a-tooltip content="主题配置">
+          <div
+            class="grid-btn"
+            @click="appStore.updateSettings({ globalSettings: true })"
+          >
+            <IconSettings :size="18" />
+          </div>
+        </a-tooltip>
+      </li>
+      <li>
         <a-dropdown trigger="click">
-          <div style="cursor: pointer">
+          <div style="cursor: pointer" class="flex align-center grid-btn">
             <a-avatar :size="32" :style="{ marginRight: '8px' }">
               <img v-if="avatar" alt="avatar" :src="avatar" />
               <IconUser v-else />
@@ -53,9 +63,13 @@
             <a-doption>
               <a-space @click="handleLogout">
                 <icon-export />
-                <span>
-                  {{ $t('messageBox.logout') }}
-                </span>
+                <span>退出登录</span>
+              </a-space>
+            </a-doption>
+            <a-doption>
+              <a-space>
+                <icon-user />
+                <span>个人中心</span>
               </a-space>
             </a-doption>
           </template>

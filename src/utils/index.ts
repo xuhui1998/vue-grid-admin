@@ -1,7 +1,7 @@
 import Clipboard from 'clipboard';
 import dayjs from 'dayjs';
 import { Message, TableData } from '@arco-design/web-vue';
-import { mapTree } from 'xe-utils'
+import { mapTree } from 'xe-utils';
 import Qs from 'qs';
 import { getToken } from './auth';
 
@@ -160,21 +160,21 @@ export const getStandardFormatTime = (
 type FilterTree = <T extends { children?: T[] }>(
   array: T[],
   iterate: (item: T, index?: number, items?: T[]) => boolean
-) => T[]
+) => T[];
 export const filterTree: FilterTree = (values, fn) => {
-  const arr = values.filter(fn)
+  const arr = values.filter(fn);
   const data = mapTree(arr, (item) => {
     if (item.children && item.children.length) {
-      item.children = item.children.filter(fn)
+      item.children = item.children.filter(fn);
     }
-    return item
-  })
-  return data
-}
+    return item;
+  });
+  return data;
+};
 
 /**
  * 获取url参数
- * @returns 
+ * @returns
  */
 export const getUrlParams = () => {
   const urlParams = new URLSearchParams(window.location.search);

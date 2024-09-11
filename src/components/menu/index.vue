@@ -36,11 +36,10 @@
           return;
         }
         // Eliminate external link side effects
-        const { hideInMenu, activeMenu } = item.meta as RouteMeta;
-        if (route.name === item.name && !hideInMenu && !activeMenu) {
-          selectedKey.value = [item.name as string];
-          return;
-        }
+        // const { hideInMenu, activeMenu } = item.meta as RouteMeta;
+        // if (route.name === item.name && !hideInMenu && !activeMenu) {
+        selectedKey.value = [item.name as string];
+        // }
         // Trigger router change
         router.push({
           name: item.name,
@@ -142,6 +141,7 @@
           auto-open-selected={true}
           level-indent={34}
           style="height: 100%;width:100%;"
+          class="grid-left-menu"
           onCollapse={setCollapse}
         >
           {renderSubMenu()}

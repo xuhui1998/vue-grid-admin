@@ -1,6 +1,6 @@
 <template>
   <section
-    :class="['system-logo', { collapsed: !isDesktop ? true : menuCollapse }]"
+    :class="['system-logo ', { collapsed: !isDesktop ? true : menuCollapse }]"
   >
     <div class="flex-row-center">
       <img
@@ -45,6 +45,8 @@
       font-size: 18px;
       font-family: 'syht Regular';
       font-weight: bold;
+      min-width: 100px;
+      overflow: hidden;
     }
   }
   .collapsed {

@@ -16,6 +16,7 @@ import SearchForm from './search-form/index.vue';
 import TableForm from './table-form/index.vue';
 import SvgIcon from './svg-icon/index.vue';
 import GridTable from './grid-table/index.vue';
+import GridDrawer from './grid-drawer/index.vue';
 import GlobalModal from './global-modal/index.vue';
 import UploadFile from './uploadFile/index.vue';
 import Wrapper from './wrapper/index.vue';
@@ -44,6 +45,7 @@ export default {
     Vue.component('Container', Container);
     Vue.component('SearchForm', SearchForm);
     Vue.component('TableForm', TableForm);
+    Vue.component('GridDrawer', GridDrawer);
     Vue.component('SvgIcon', SvgIcon);
     Vue.component('GridTable', GridTable);
     Vue.component('GlobalModal', GlobalModal);

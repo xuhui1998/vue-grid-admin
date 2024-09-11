@@ -19,7 +19,7 @@ const useAppStore = defineStore('app', {
   },
 
   actions: {
-    // Update app settings
+    // 修改页面配置
     updateSettings(partial: Partial<AppState>) {
       // @ts-ignore-next-line
       this.$patch(partial);

@@ -1,6 +1,7 @@
 <template>
   <div class="block">
-    <h5 class="title">{{ title }}</h5>
+    <a-divider>{{ title }}</a-divider>
+    <slot></slot>
     <div v-for="option in options" :key="option.name" class="switch-wrapper">
       <span>{{ $t(option.name) }}</span>
       <form-wrapper
