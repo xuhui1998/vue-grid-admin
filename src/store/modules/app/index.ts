@@ -41,12 +41,6 @@ const useAppStore = defineStore('app', {
     toggleMenu(value: boolean) {
       this.hideMenu = value;
     },
-    collapseMenu() {
-      this.menuCollapse = !this.menuCollapse;
-    },
-    setLayoutFullscreen() {
-      this.layoutFullscreen = !this.layoutFullscreen;
-    },
     processRoutes(routes: RouteRecordRaw[]) {
       return routes.map(route => {
         if (route.children) {

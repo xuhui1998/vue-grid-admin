@@ -1,8 +1,10 @@
 <template>
-  <a-config-provider :locale="locale">
-    <router-view />
-    <global-setting />
-  </a-config-provider>
+  <Watermark :show="appStore.watermark">
+    <a-config-provider :locale="locale">
+      <router-view />
+      <global-setting />
+    </a-config-provider>
+  </Watermark>
 </template>
 
 <script lang="ts" setup>

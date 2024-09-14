@@ -11,8 +11,8 @@
     <Block title="页面布局">
       <Layout />
     </Block>
-    <Block :options="contentOpts" :title="$t('settings.content')" />
-    <Block :options="othersOpts" :title="$t('settings.otherSettings')" />
+    <Block :options="contentOpts" title="页面配置" />
+    <Block :options="othersOpts" title="其他配置" />
   </GridDrawer>
 </template>
 
@@ -30,7 +30,7 @@
   const { copy } = useClipboard();
   const visible = computed(() => appStore.globalSettings);
   const contentOpts = computed(() => [
-    { name: 'settings.navbar', key: 'navbar', defaultVal: appStore.navbar },
+    { name: '多页签', key: 'navbar', defaultVal: appStore.navbar },
     {
       name: 'settings.menu',
       key: 'menu',
@@ -57,9 +57,19 @@
   ]);
   const othersOpts = computed(() => [
     {
+      name: '显示水印',
+      key: 'watermark',
+      defaultVal: appStore.watermark,
+    },
+    {
       name: '色弱模式',
       key: 'colorWeak',
       defaultVal: appStore.colorWeak,
+    },
+    {
+      name: '灰色模式',
+      key: 'grey',
+      defaultVal: appStore.grey,
     },
   ]);
 

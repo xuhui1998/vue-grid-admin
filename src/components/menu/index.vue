@@ -141,7 +141,7 @@
           auto-open-selected={true}
           level-indent={34}
           style="height: 100%;width:100%;"
-          class="grid-left-menu"
+          class={!topMenu.value ? 'grid-left-menu' : 'grid-top-menu'}
           onCollapse={setCollapse}
         >
           {renderSubMenu()}

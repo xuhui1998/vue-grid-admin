@@ -3,7 +3,6 @@
   "colorWeak": false,
   "navbar": true,
   "menu": true,
-  "topMenu": false,
   "hideMenu": false,
   "menuCollapse": false,
   "footer": false,
@@ -17,6 +16,8 @@
   "layoutFullscreen": false,
   "serverMenu": [],
   "menuAccordion": false,
+  "watermark": false,
+  "grey": false,
   "layout": "mix",
   "projectName": "Grid Admin",
   "version": "1.0.0"

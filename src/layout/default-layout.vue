@@ -45,7 +45,7 @@
         </a-drawer>
         <a-layout class="layout-content" :style="paddingStyle">
           <TabBar v-if="appStore.tabBar" />
-          <a-layout-content>
+          <a-layout-content :style="{ flex: '1 1 0' }">
             <PageLayout />
           </a-layout-content>
         </a-layout>
@@ -171,7 +171,7 @@
     left: 0;
     z-index: 99;
     height: 100%;
-    transition: all 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
+    transition: all 0.3s cubic-bezier(0.34, 0.69, 0.1, 1);
     background: transparent;
     box-shadow: @layout-shadow;
     &::after {

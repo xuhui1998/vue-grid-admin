@@ -1,9 +1,5 @@
 <template>
   <a-breadcrumb class="container-breadcrumb" :routes="breadcrumb">
-    <!-- <a-breadcrumb-item v-for="item in breadcrumb" :key="item.name">
-      <MenuIcon :icon="item.icon" />
-      {{ item.locale }}
-    </a-breadcrumb-item> -->
     <template #item-render="{ route }">
       <a-dropdown trigger="click">
         <span

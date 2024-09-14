@@ -127,7 +127,7 @@
   topMenus.value = JSON.parse(JSON.stringify(menuRoutes));
 
   const toggleDrawerMenu = () => {
-    appStore.collapseMenu();
+    appStore.updateSettings({ menuCollapse: !appStore.menuCollapse });
   };
   provide('toggleDrawerMenu', toggleDrawerMenu);
 

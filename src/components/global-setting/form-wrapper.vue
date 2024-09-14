@@ -9,7 +9,6 @@
   <a-switch
     v-else
     :default-checked="(defaultValue as boolean)"
-    size="small"
     @change="handleChange"
   />
 </template>

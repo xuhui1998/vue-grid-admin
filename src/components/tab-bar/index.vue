@@ -27,7 +27,14 @@
             :content="appStore.layoutFullscreen ? '退出全屏' : '全屏'"
             position="br"
           >
-            <div class="grid-btn" @click="appStore.setLayoutFullscreen">
+            <div
+              class="grid-btn"
+              @click="
+                appStore.updateSettings({
+                  layoutFullscreen: !appStore.layoutFullscreen,
+                })
+              "
+            >
               <IconFullscreen v-if="!appStore.layoutFullscreen" />
               <IconFullscreenExit v-else />
             </div>

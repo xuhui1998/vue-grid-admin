@@ -5,7 +5,6 @@ export interface AppState {
   colorWeak: boolean;
   navbar: boolean;
   menu: boolean;
-  topMenu: boolean;
   hideMenu: boolean;
   // 菜单收缩
   menuCollapse: boolean;
@@ -22,6 +21,10 @@ export interface AppState {
   menuFromServer: boolean;
   // layout布局是否全屏
   layoutFullscreen: boolean;
+  // 全局水印
+  watermark?: boolean;
+  // 灰色模式
+  grey?: boolean;
   // 服务端菜单数据
   serverMenu: RouteRecordNormalized[];
   layout: string;

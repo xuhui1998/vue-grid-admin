@@ -48,6 +48,9 @@
     if (key === 'colorWeak') {
       document.body.style.filter = value ? 'invert(80%)' : 'none';
     }
+    if (key === 'grey') {
+      document.body.style.filter = value ? 'grayscale(100%)' : 'none';
+    }
     if (key === 'menuFromServer' && value) {
       await appStore.fetchServerMenuConfig();
     }
@@ -75,6 +78,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 32px;
+    height: 36px;
   }
 </style>
