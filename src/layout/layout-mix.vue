@@ -56,10 +56,11 @@
         <NavBar />
       </header>
       <a-layout class="layout-content transition-all-300">
-        <TabBar v-if="appStore.tabBar" />
+        <TabBar />
         <a-layout-content>
           <PageLayout />
         </a-layout-content>
+        <Footer />
       </a-layout>
     </section>
   </div>
@@ -86,6 +87,7 @@
   import { useAppStore } from '@/store';
   import { useDevice } from '@/hooks/useDevice';
   import NavBar from '@/components/navbar/index.vue';
+  import Footer from '@/components/footer/index.vue';
   import Logo from './components/logo.vue';
   import LeftMenu from './components/left-menu.vue';
 
@@ -299,6 +301,9 @@
   .layout-content {
     min-height: calc(100vh - 60px);
     overflow-y: auto;
+    .arco-layout-content {
+      overflow: hidden;
+    }
   }
   .arco-menu-selected,
   .arco-menu-item {

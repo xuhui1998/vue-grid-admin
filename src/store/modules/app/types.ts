@@ -1,5 +1,6 @@
 import type { RouteRecordNormalized } from 'vue-router';
 
+export type Layout = 'left' | 'mix' | 'top';
 export interface AppState {
   theme: string;
   colorWeak: boolean;
@@ -17,6 +18,8 @@ export interface AppState {
   device: string;
   // 展示多页签
   tabBar: boolean;
+  // 展示面包屑
+  breadcrumb: boolean;
   // 是否服务端渲染菜单
   menuFromServer: boolean;
   // layout布局是否全屏
@@ -27,7 +30,7 @@ export interface AppState {
   grey?: boolean;
   // 服务端菜单数据
   serverMenu: RouteRecordNormalized[];
-  layout: string;
+  layout: Layout;
   transitionName: string;
   [key: string]: unknown;
 }

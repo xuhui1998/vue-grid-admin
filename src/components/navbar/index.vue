@@ -15,7 +15,7 @@
             <icon-menu-fold :size="18" />
           </div>
         </div>
-        <Breadcrumb />
+        <Breadcrumb v-if="appStore.breadcrumb" />
       </div>
     </div>
     <ul class="right-side">
@@ -51,25 +51,42 @@
         </a-tooltip>
       </li>
       <li>
-        <a-dropdown trigger="click">
+        <a-dropdown trigger="click" position="br" popup-container="#app" class="nav-dropdown">
           <div style="cursor: pointer" class="flex align-center grid-btn">
-            <a-avatar :size="32" :style="{ marginRight: '8px' }">
+            <a-avatar :size="28">
               <img v-if="avatar" alt="avatar" :src="avatar" />
               <IconUser v-else />
             </a-avatar>
-            <span style="color: var(--color-text-2)">{{ userInfo.name }}</span>
+            <!-- <span style="color: var(--color-text-2)">{{ userInfo.name }}</span> -->
           </div>
           <template #content>
-            <a-doption>
-              <a-space @click="handleLogout">
-                <icon-export />
-                <span>退出登录</span>
+            <div class="user-info">
+              <a-space>
+                <a-avatar :size="36">
+                  <img v-if="avatar" alt="avatar" :src="avatar" />
+                  <IconUser v-else />
+                </a-avatar>
+                <span class="username">
+                  {{ userInfo.name }}
+                </span>
               </a-space>
-            </a-doption>
+            </div>
             <a-doption>
               <a-space>
                 <icon-user />
                 <span>个人中心</span>
+              </a-space>
+            </a-doption>
+            <a-doption @click="toGitHub">
+              <a-space>
+                <icon-github />
+                <span>GitHub</span>
+              </a-space>
+            </a-doption>
+            <a-doption @click="handleLogout">
+              <a-space>
+                <icon-export />
+                <span>退出登录</span>
               </a-space>
             </a-doption>
           </template>
@@ -83,6 +100,7 @@
   import { ref, computed, inject } from 'vue';
   import { useDark, useToggle } from '@vueuse/core';
   import { useAppStore, useUserStore, useLogStore } from '@/store';
+  import { openWindow } from '@/utils';
   import MyStorage from '@/utils/storage';
   import useUser from '@/hooks/user';
   import Menu from '@/components/menu/index.vue';
@@ -126,6 +144,10 @@
     logout();
   };
   const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void;
+
+  const toGitHub = () => {
+    openWindow('https://github.com/xuhui1998/vue-grid-admin');
+  };
 </script>
 
 <style scoped lang="less">
@@ -168,7 +190,7 @@
     li {
       display: flex;
       align-items: center;
-      padding: 0 10px;
+      padding: 0 6px;
     }
 
     a {
@@ -189,16 +211,31 @@
       margin-left: 14px;
     }
   }
-</style>
 
-<style lang="less">
-  .message-popover {
-    .arco-popover-content {
-      margin-top: 0;
+  .nav-dropdown {
+    width: 150px !important;
+    .user-info {
+      margin-bottom: 10px;
+      padding: 6px;
+      .username {
+        font-weight: bold;
+        color: var(--color-text-2);
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        top: 54px;
+        left: 0;
+        height: 1px;
+        width: 100%;
+        background-color: var(--color-border-2);
+      }
     }
   }
-  .collapse {
-    width: 20px;
-    height: 20px;
+</style>
+
+<style>
+  .nav-dropdown {
+    width: 150px;
   }
 </style>

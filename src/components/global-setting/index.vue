@@ -30,29 +30,68 @@
   const { copy } = useClipboard();
   const visible = computed(() => appStore.globalSettings);
   const contentOpts = computed(() => [
-    { name: '多页签', key: 'navbar', defaultVal: appStore.navbar },
     {
-      name: 'settings.menu',
+      name: '导航栏',
+      key: 'navbar',
+      defaultVal: appStore.navbar,
+      type: 'switch',
+      layout: ['left', 'top'],
+    },
+    {
+      name: '菜单栏',
       key: 'menu',
       defaultVal: appStore.menu,
+      type: 'switch',
+      layout: ['left', 'top'],
     },
     {
-      name: 'settings.topMenu',
-      key: 'topMenu',
-      defaultVal: appStore.topMenu,
-    },
-    { name: 'settings.footer', key: 'footer', defaultVal: appStore.footer },
-    { name: 'settings.tabBar', key: 'tabBar', defaultVal: appStore.tabBar },
-    {
-      name: 'settings.menuFromServer',
-      key: 'menuFromServer',
-      defaultVal: appStore.menuFromServer,
+      name: '展示底部',
+      key: 'footer',
+      defaultVal: appStore.footer,
+      type: 'switch',
+      layout: ['mix', 'left', 'top'],
     },
     {
-      name: 'settings.menuWidth',
+      name: '标签栏',
+      key: 'tabBar',
+      defaultVal: appStore.tabBar,
+      type: 'switch',
+      layout: ['mix', 'left', 'top'],
+    },
+    {
+      name: '展示面包屑',
+      key: 'breadcrumb',
+      defaultVal: appStore.breadcrumb,
+      type: 'switch',
+      layout: ['left'],
+    },
+    // {
+    //   name: 'settings.menuFromServer',
+    //   key: 'menuFromServer',
+    //   defaultVal: appStore.menuFromServer,
+    // },
+    {
+      name: '菜单宽度',
       key: 'menuWidth',
       defaultVal: appStore.menuWidth,
       type: 'number',
+      layout: ['mix', 'left', 'top'],
+    },
+    {
+      name: '页面切换效果',
+      key: 'transitionName',
+      defaultVal: appStore.transitionName,
+      options: [
+        { label: '无', value: '' },
+        { label: '滑动', value: 'fade-slide' },
+        { label: '淡入淡出', value: 'fade' },
+        { label: '底部退出', value: 'fade-bottom' },
+        { label: '缩放退出', value: 'fade-scale' },
+        { label: '放大退出', value: 'zoom-fade' },
+        { label: '闪现', value: 'zoom-out' },
+      ],
+      type: 'select',
+      layout: ['mix', 'left', 'top'],
     },
   ]);
   const othersOpts = computed(() => [
@@ -60,16 +99,19 @@
       name: '显示水印',
       key: 'watermark',
       defaultVal: appStore.watermark,
+      layout: ['mix', 'left', 'top'],
     },
     {
       name: '色弱模式',
       key: 'colorWeak',
       defaultVal: appStore.colorWeak,
+      layout: ['mix', 'left', 'top'],
     },
     {
       name: '灰色模式',
       key: 'grey',
       defaultVal: appStore.grey,
+      layout: ['mix', 'left', 'top'],
     },
   ]);
 

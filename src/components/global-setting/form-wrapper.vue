@@ -1,13 +1,21 @@
 <template>
   <a-input-number
     v-if="type === 'number'"
-    :style="{ width: '80px' }"
+    :style="{ width: '100px' }"
     size="small"
     :default-value="(defaultValue as number)"
     @change="handleChange"
   />
+  <a-select
+    v-if="type === 'select'"
+    :default-value="(defaultValue as string)"
+    :options="options"
+    size="small"
+    :style="{ width: '100px' }"
+    @change="handleChange"
+  ></a-select>
   <a-switch
-    v-else
+    v-if="type === 'switch'"
     :default-checked="(defaultValue as boolean)"
     @change="handleChange"
   />
@@ -22,6 +30,12 @@
     name: {
       type: String,
       default: '',
+    },
+    options: {
+      type: Array<{ label: string; value: string }>,
+      default() {
+        return [];
+      },
     },
     defaultValue: {
       type: [String, Boolean, Number],

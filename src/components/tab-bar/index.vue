@@ -2,7 +2,9 @@
   <div
     :class="[
       'tab-bar-container',
+      'transition-all-300',
       { 'layout-left': appStore.layout === 'left' },
+      { 'hide-tab-bar': !appStore.tabBar },
     ]"
   >
     <div class="tab-bar-box">
@@ -92,7 +94,8 @@
   .tab-bar-container {
     position: relative;
     box-shadow: @tab-shadow;
-    z-index: 1;
+    height: @tab-height;
+    overflow: hidden;
     .tab-bar-box {
       display: flex;
       padding: 4px 12px;
@@ -128,6 +131,9 @@
       justify-content: center;
       align-items: center;
     }
+  }
+  .hide-tab-bar {
+    height: 0;
   }
   .layout-left {
     box-shadow: @layout-default-tab-shadow;

@@ -2,14 +2,20 @@
   <div class="block">
     <a-divider>{{ title }}</a-divider>
     <slot></slot>
-    <div v-for="option in options" :key="option.name" class="switch-wrapper">
-      <span>{{ $t(option.name) }}</span>
-      <form-wrapper
-        :type="option.type || 'switch'"
-        :name="option.key"
-        :default-value="option.defaultVal"
-        @input-change="handleChange"
-      />
+    <div v-for="option in options" :key="option.name">
+      <div
+        v-if="option?.layout.includes(appStore.layout)"
+        class="switch-wrapper"
+      >
+        <span>{{ option.name }}</span>
+        <form-wrapper
+          :type="option.type"
+          :name="option.key"
+          :options="option.options"
+          :default-value="option.defaultVal"
+          @input-change="handleChange"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -23,7 +29,9 @@
     name: string;
     key: string;
     type?: string;
+    options?: Array<{ label: string; value: string }>;
     defaultVal?: boolean | string | number;
+    layout: string[];
   }
   defineProps({
     title: {

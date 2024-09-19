@@ -44,10 +44,11 @@
           <Menu />
         </a-drawer>
         <a-layout class="layout-content" :style="paddingStyle">
-          <TabBar v-if="appStore.tabBar" />
-          <a-layout-content :style="{ flex: '1 1 0' }">
+          <TabBar />
+          <a-layout-content>
             <PageLayout />
           </a-layout-content>
+          <Footer />
         </a-layout>
       </a-layout>
     </a-layout>
@@ -159,10 +160,10 @@
     z-index: 100;
     width: 100%;
     height: @navbar-height;
+    overflow: hidden;
   }
   .layout-navbar-hide {
     height: 0 !important;
-    overflow: hidden;
   }
 
   .layout-sider {
@@ -223,5 +224,8 @@
     overflow-y: hidden;
     background-color: var(--color-fill-2);
     transition: padding 0.3s cubic-bezier(0.34, 0.69, 0.1, 1);
+    .arco-layout-content {
+      overflow: hidden;
+    }
   }
 </style>
