@@ -30,7 +30,7 @@ export interface AppState {
   grey?: boolean;
   // 服务端菜单数据
   serverMenu: RouteRecordNormalized[];
-  layout: Layout;
+  layout: string;
   transitionName: string;
   [key: string]: unknown;
 }

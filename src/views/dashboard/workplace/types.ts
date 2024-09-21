@@ -18,14 +18,13 @@ export interface EChartsProps {
   xAxis: string[];
 }
 
-export class EchartsFilterData {
-  /**
-   * 商户id
-   */
-  merchantIds: string[] = [];
-
-  /**
-   * 日期 1: 30日 2: 今日
-   */
-  date = '1';
+export interface TrendsProps {
+  id: string;
+  avatar: string;
+  title: string;
+  content: string;
+  time: string;
+  thumbs_up?: string;
+  browse: string;
+  comment: string;
 }

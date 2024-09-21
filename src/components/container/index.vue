@@ -19,6 +19,7 @@
     padding: 8px;
     position: relative;
     height: 100%;
+    overflow: auto;
   }
   .arco-space {
     margin-bottom: 10px;

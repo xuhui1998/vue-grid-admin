@@ -1,5 +1,8 @@
 <template>
-  <div :class="['wrapper', 'mb-10', className]" :style="wrapperStyle">
+  <div
+    :class="['wrapper', 'layer-bg', 'mb-10', className]"
+    :style="wrapperStyle"
+  >
     <div :class="['wrapper-title', titleClassName]" :style="titleStyle">
       <div>{{ title }}</div>
       <slot name="title"></slot>
@@ -9,10 +12,11 @@
     </div>
   </div>
 </template>
-<script lang='ts' setup>
-  import { type CSSProperties } from 'vue';
 
-  defineProps<{
+<script lang="ts" setup>
+  import { type CSSProperties, computed } from 'vue';
+
+  const props = defineProps<{
     title?: string;
     titleStyle?: CSSProperties;
     contentStyle?: CSSProperties;
@@ -21,23 +25,29 @@
     titleClassName?: string;
     contentClassName?: string;
   }>();
+
+  const titlePadding = computed(() => {
+    if (props.title) {
+      return '10px 10px 0 10px';
+    }
+    return '0';
+  });
 </script>
-<style lang='less' scoped>
+
+<style lang="less" scoped>
   .wrapper {
-    // background-color: var(--color-bg-2);
     position: relative;
-    background-color: var(--color-spin-layer-bg);
     border-radius: 8px;
     &-title {
       align-items: center;
       color: var(--color-text-1);
-      font-size: 14px;
+      font-size: 16px;
       font-weight: bold;
       line-height: 1.5715;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      padding: 10px 10px 0 10px;
+      padding: v-bind(titlePadding);
     }
     &-content {
       padding: 10px;

@@ -51,7 +51,12 @@
         </a-tooltip>
       </li>
       <li>
-        <a-dropdown trigger="click" position="br" popup-container="#app" class="nav-dropdown">
+        <a-dropdown
+          trigger="click"
+          position="br"
+          popup-container="#app"
+          class="nav-dropdown"
+        >
           <div style="cursor: pointer" class="flex align-center grid-btn">
             <a-avatar :size="28">
               <img v-if="avatar" alt="avatar" :src="avatar" />
@@ -218,7 +223,7 @@
       margin-bottom: 10px;
       padding: 6px;
       .username {
-        font-weight: bold;
+        font-weight: 600;
         color: var(--color-text-2);
       }
       &::after {
