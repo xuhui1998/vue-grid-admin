@@ -45,7 +45,7 @@
         </a-drawer>
         <a-layout class="layout-content" :style="paddingStyle">
           <TabBar />
-          <a-layout-content>
+          <a-layout-content style="flex: 1 1 0">
             <PageLayout />
           </a-layout-content>
           <Footer />

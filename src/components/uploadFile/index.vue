@@ -1,5 +1,6 @@
 <template>
   <a-upload
+    ref="uploadRef"
     :list-type="listType"
     :action="action"
     :file-list="file ? [file] : []"
@@ -49,11 +50,11 @@
             <span v-if="icon">
               <component
                 :is="icon"
-                v-if="getIconType(icon) === 'arco-icon'"
+                v-if="icon.substring(0, 4).toLowerCase() === 'icon'"
                 :style="iconStyle"
               ></component>
               <SvgIcon
-                v-if="getIconType(icon) !== 'arco-icon'"
+                v-if="icon.substring(0, 4).toLowerCase() !== 'icon'"
                 :icon-class="icon"
                 :style="iconStyle"
               ></SvgIcon>
@@ -72,8 +73,6 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { getToken } from '@/utils/auth';
-  // import { upload } from '@/api/episode';
-  import { getIconType } from '@/utils';
   import { Message, Modal, FileItem } from '@arco-design/web-vue';
 
   type FileListType = 'text' | 'picture' | 'picture-card';
@@ -124,6 +123,7 @@
   // 上传进度
   const loading = ref<boolean>(false);
   const imageDimensions = ref();
+  const uploadRef = ref();
 
   const uploadFile = async () => {
     // 自动上传上传状态 上传中
@@ -152,28 +152,36 @@
     // }
   };
 
-  const getCoverSize = (coverFile: File) => {
-    // console.log(coverFile);
+  /**
+   * 获取图片尺寸
+   * @param coverFile
+   */
+  const getCoverSize = async (coverFile: File) => {
     const imageUrl = URL.createObjectURL(coverFile);
     const img = new Image();
     img.src = imageUrl;
-    img.onload = () => {
-      imageDimensions.value = { width: img.width, height: img.height };
-      emit('coverSize', imageDimensions.value);
-      // 释放创建的 URL 对象，优化内存
-      URL.revokeObjectURL(imageUrl);
-    };
+    return new Promise((resolve, reject) => {
+      img.onload = () => {
+        imageDimensions.value = { width: img.width, height: img.height };
+        // emit('coverSize', imageDimensions.value);
+        // 释放创建的 URL 对象，优化内存
+        URL.revokeObjectURL(imageUrl);
+        resolve('success');
+      };
+      img.onerror = reject;
+    });
   };
 
-  const changeUploadFile = (fileList: any, fileItem: any) => {
+  const changeUploadFile = async (fileList: any, fileItem: any) => {
     if (props.limitFileSize) {
-      const isExceedSize = fileItem.file.size > props.limitFileSize * 1024 * 1024;
+      const isExceedSize =
+        fileItem.file.size > props.limitFileSize * 1024 * 1024;
       if (isExceedSize) {
         Message.warning(`文件大小不能超过${props.limitFileSize}MB`);
         return;
       }
     }
-    getCoverSize(fileItem.file);
+    await getCoverSize(fileItem.file);
     file.value = { ...fileItem };
     if (props.customUpload) {
       // 手动上传可以自定义loading状态
@@ -205,8 +213,22 @@
     emit('removeFile');
   };
 
+  const clearFile = () => {
+    file.value = null;
+  };
+
+  const setFile = (fileItem: any) => {
+    file.value = fileItem;
+  };
+
   defineExpose({
     loading,
+    file,
+    uploadRef,
+    imageDimensions,
+    clearFile,
+    getCoverSize,
+    setFile,
   });
 
   const onBeforeUpload = (file: File) => {

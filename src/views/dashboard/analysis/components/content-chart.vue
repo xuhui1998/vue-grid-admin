@@ -30,8 +30,7 @@
   import { ToolTipFormatterParams } from '@/types/echarts';
   import { AnyObject } from '@/types/global';
   import { isEmpty } from 'lodash';
-  import { useLogStore } from '@/store';
-  import { EChartsProps, EchartsFilterData } from '../types';
+  import { EChartsProps } from '../types';
 
   const props = withDefaults(
     defineProps<{
@@ -48,7 +47,7 @@
       border: true,
       chartLoading: false,
     }
-  )
+  );
 
   function graphicFactory(side: AnyObject) {
     return {
@@ -63,8 +62,6 @@
       },
     };
   }
-
-  const store = useLogStore();
 
   const { loading, setLoading } = useLoading(true);
   const chartRef = ref();
@@ -202,17 +199,7 @@
 
   const fetchData = async (areas: EChartsProps) => {
     // console.log(chartRef.value.VChartsRef);
-    const lineColors = areas.series
-      ? Object.entries(areas.series).map(() => {
-          return [
-            'rgba(30, 231, 255, 1)',
-            'rgba(36, 154, 255, 1)',
-            'rgba(111, 66, 251, 1)',
-          ];
-        })
-      : [];
     setLoading(true);
-    console.log(loading.value);
     try {
       xAxis.value = areas.xAxis;
       setChartData(areas.xAxis);
@@ -233,21 +220,7 @@
             },
           },
           lineStyle: {
-            width: 3,
-            color: new graphic.LinearGradient(0, 0, 1, 0, [
-              {
-                offset: 0,
-                color: lineColors[index][0],
-              },
-              {
-                offset: 0.5,
-                color: lineColors[index][1],
-              },
-              {
-                offset: 1,
-                color: lineColors[index][2],
-              },
-            ]),
+            width: 2,
           },
           showSymbol: false,
           areaStyle: {

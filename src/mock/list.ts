@@ -16,7 +16,7 @@ const getProjectTrendsList = () => {
     },
     {
       id: 2,
-      title: '小鱼',
+      title: '小鱼儿',
       browse: '2.4k',
       comment: '24',
       avatar:
@@ -35,6 +35,7 @@ const getProjectTrendsList = () => {
       content: '更新了个人动态',
       link: '怎么又下雨啦！！！',
       time: '三天前',
+      extra: 'http://lc-KyqgG0La.cn-n1.lcfile.com/xBo0tqk1kCsCyDBO2MGO1Hguq1kFzJG6/WechatIMG78.jpg',
     },
     {
       id: 4,
@@ -63,7 +64,7 @@ const getProjectTrendsList = () => {
     },
     {
       id: 6,
-      title: '小鱼',
+      title: '小鱼儿',
       browse: '203',
       comment: '3',
       avatar:
@@ -75,10 +76,51 @@ const getProjectTrendsList = () => {
   ];
 };
 
+const getUpdateLogList = () => {
+  return [
+    {
+      title: 'feat: 创建可视化预览组件，大屏数据同步',
+      label: '2024-08-06',
+    },
+    {
+      title: 'feat: 创建用户关联文件，批量同步用户信息',
+      label: '2024-08-02',
+    },
+    {
+      title: 'refactor: 重构样式文件 design.less',
+      label: '2024-07-28',
+    },
+    {
+      title: 'feat: 个人主页，支持用户编辑个人信息',
+      label: '2024-07-24',
+    },
+    {
+      title: 'fix: 修复首页数据统计组件数据异常',
+      label: '2024-07-23',
+    },
+    {
+      title: 'feat: 登录页面验证码校验',
+      label: '2024-07-21',
+    },
+    {
+      title: 'feat: 新增用户管理模块，批量操作用户权限',
+      label: '2024-07-21',
+    },
+    {
+      title: 'feat: 新增组件GridTable',
+      label: '2024-07-18',
+    },
+  ];
+};
+
 setupMock({
   setup: () => {
     Mock.mock(new RegExp('/api/dashboard/project/list'), () => {
       return successResponseWrap(getProjectTrendsList());
+    });
+
+    Mock.mock(new RegExp('/api/dashboard/update/list'), () => {
+      return successResponseWrap(getUpdateLogList());
     });
   },
 });

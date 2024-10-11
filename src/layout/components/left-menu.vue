@@ -95,6 +95,7 @@
     const treeArr = toTreeArray(sidebarRoutes.value);
     const obj = treeArr?.find((i) => i.name === name);
     router.push({ name: obj?.name });
+    // router.push({ name: 'Analysis' });
     emit('menu-item-click-after');
   };
 

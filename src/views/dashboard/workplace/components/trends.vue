@@ -1,6 +1,6 @@
 <template>
   <Wrapper title="项目动态">
-    <a-list class="trend-list" :bordered="false" :data="list">
+    <a-list v-if="!loading" class="trend-list" :bordered="false" :data="list">
       <template #item="{ item }">
         <a-list-item class="list-item" action-layout="vertical">
           <template #actions>
@@ -17,7 +17,7 @@
           </template>
           <template #extra>
             <div v-if="item.extra" class="image-extra">
-              <img alt="avatar" :src="item.extra" />
+              <img alt="cover" :src="item.extra" />
             </div>
           </template>
           <a-list-item-meta :title="item.title">
@@ -36,20 +36,27 @@
         </a-list-item>
       </template>
     </a-list>
+    <a-skeleton v-else animation>
+      <a-skeleton-line :rows="6" />
+    </a-skeleton>
   </Wrapper>
 </template>
 
 <script lang="ts" setup>
   import { ref, onMounted } from 'vue';
   import { getProjectDynamicList } from '@/api/dashboard';
+  import useLoading from '@/hooks/loading';
   import { TrendsProps } from '../types';
 
+  const { loading, setLoading } = useLoading();
   const list = ref<Array<TrendsProps>>([]);
 
   const getList = async () => {
+    setLoading(true);
     const { data, code } = await getProjectDynamicList();
     if (code === 200) {
       list.value = data.sort((a, b) => b.id - a.id);
+      setLoading(false);
     }
   };
 
@@ -68,10 +75,10 @@
   .trend-list {
     .image-extra {
       width: 200px;
-      border-radius: 4px;
       overflow: hidden;
       img {
         width: 100%;
+        border-radius: 4px;
       }
     }
     .list-item {
@@ -97,5 +104,8 @@
         cursor: auto;
       }
     }
+  }
+  :deep(.arco-skeleton-line-row) {
+    height: 104px !important;
   }
 </style>

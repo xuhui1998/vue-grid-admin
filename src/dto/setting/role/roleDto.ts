@@ -4,7 +4,7 @@ export default class RoleDto extends BaseDto {
   /**
    * 角色名称
    */
-  role_name: string = '';
+  role_name = '';
 
   /**
    * 父角色
@@ -24,5 +24,5 @@ export default class RoleDto extends BaseDto {
   /**
    * 状态
    */
-  status: string = '1';
+  status = '1';
 }

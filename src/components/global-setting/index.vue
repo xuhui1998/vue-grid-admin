@@ -98,18 +98,21 @@
     {
       name: '显示水印',
       key: 'watermark',
+      type: 'switch',
       defaultVal: appStore.watermark,
       layout: ['mix', 'left', 'top'],
     },
     {
       name: '色弱模式',
       key: 'colorWeak',
+      type: 'switch',
       defaultVal: appStore.colorWeak,
       layout: ['mix', 'left', 'top'],
     },
     {
       name: '灰色模式',
       key: 'grey',
+      type: 'switch',
       defaultVal: appStore.grey,
       layout: ['mix', 'left', 'top'],
     },

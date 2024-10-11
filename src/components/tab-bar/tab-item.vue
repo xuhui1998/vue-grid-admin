@@ -27,12 +27,12 @@
         class="grid-icon-close"
         @click.stop="tagClose(itemData, index)"
       >
-        <icon-close />
+        <icon-close :size="12" />
       </span>
     </span>
     <template #content>
       <a-doption
-        class="sperate-line"
+        class="separate-line"
         :disabled="disabledCurrent"
         :value="Eaction.current"
       >
@@ -44,7 +44,7 @@
         <span>关闭左侧标签页</span>
       </a-doption>
       <a-doption
-        class="sperate-line"
+        class="separate-line"
         :disabled="disabledRight"
         :value="Eaction.right"
       >
@@ -182,7 +182,7 @@
       text-decoration: none;
     }
     &:hover .grid-icon-close {
-      padding: 2px;
+      padding: 3px;
       .arco-icon {
         width: 1em;
       }
@@ -220,7 +220,7 @@
       margin-left: 10px;
     }
   }
-  .sperate-line {
+  .separate-line {
     border-bottom: 1px solid var(--color-neutral-3);
   }
 </style>

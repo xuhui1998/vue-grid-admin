@@ -55,10 +55,10 @@ const useAppStore = defineStore('tabBar', {
       const store = appStore();
       if (route.name === 'login') return;
       if (BAN_LIST.includes(route.name as string)) return;
-      // 处理服务端菜单serverMenu和本地菜单meta.local名称对不上的问题
+      // 处理服务端菜单serverMenu和本地菜单local,icon对不上的问题
       const serverMenu = flatten(store.$state.serverMenu) as RouteRecordRaw[];
       const activeRoute = serverMenu.find((item) => item.name === route.name);
-      route.meta = activeRoute?.meta as RouteMeta;
+      route.meta = { ...route.meta, ...activeRoute?.meta } as RouteMeta;
       this.tagList.push(formatTag(route));
       if (route.meta && !route.meta?.ignoreCache) {
         this.cacheTabList.add(route.name as string);

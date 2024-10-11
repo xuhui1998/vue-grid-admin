@@ -4,7 +4,7 @@
     :style="wrapperStyle"
   >
     <div :class="['wrapper-title', titleClassName]" :style="titleStyle">
-      <div>{{ title }}</div>
+      <div v-if="title">{{ title }}</div>
       <slot name="title"></slot>
     </div>
     <div :class="['wrapper-content', contentClassName]" :style="contentStyle">
@@ -16,7 +16,7 @@
 <script lang="ts" setup>
   import { type CSSProperties, computed } from 'vue';
 
-  const props = defineProps<{
+  defineProps<{
     title?: string;
     titleStyle?: CSSProperties;
     contentStyle?: CSSProperties;
@@ -26,8 +26,14 @@
     contentClassName?: string;
   }>();
 
+  const slots = defineSlots<{
+    title: string;
+    default: any;
+  }>();
+
   const titlePadding = computed(() => {
-    if (props.title) {
+    const titleDom = document.querySelector('.wrapper-title');
+    if (titleDom.children.length > 0 || slots.title) {
       return '10px 10px 0 10px';
     }
     return '0';

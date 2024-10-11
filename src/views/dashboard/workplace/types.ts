@@ -28,3 +28,11 @@ export interface TrendsProps {
   browse: string;
   comment: string;
 }
+
+export interface ProjectUpdatedList {
+  id: string;
+  title: string;
+  label: string;
+  link: string;
+  avatar?: string;
+}

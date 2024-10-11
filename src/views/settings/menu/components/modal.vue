@@ -165,6 +165,7 @@
   const IconComponentsCopy = shallowRef<any[]>([]);
   const iconFontArr = ref<string[]>([]);
   const iconFontArrCopy = ref<string[]>([]);
+  // eslint-disable-next-line no-restricted-syntax
   for (const [key, component] of Object.entries(Icons)) {
     IconComponents.value.push(component);
   }
@@ -179,6 +180,7 @@
   };
 
   const modules = import.meta.glob('@/assets/icons/*.svg');
+  // eslint-disable-next-line no-restricted-syntax
   for (const [key, component] of Object.entries(modules)) {
     iconFontArr.value.push(extractFileName(key));
   }
@@ -202,8 +204,9 @@
       if (item.name === 'component') {
         item.disabled = state.formState.pid === 0;
         item.prependText = state.formState.pid != 0 ? '@/views' : '';
-        item.appendText = state.formState.pid != 0 ? '.vue' : '';
+        item.appendText = state.formState.pid != 0 ? '/index.vue' : '';
         state.formState.component =
+          // eslint-disable-next-line no-nested-ternary
           state.formState.pid === 0
             ? 'Layout'
             : type.value === 'add'

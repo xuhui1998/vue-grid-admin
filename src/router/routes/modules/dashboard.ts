@@ -21,6 +21,15 @@ const DASHBOARD: AppRouteRecordRaw = {
         requiresAuth: true,
       },
     },
+    {
+      path: 'analysis',
+      name: 'Analysis',
+      component: () => import('@/views/dashboard/analysis/index.vue'),
+      meta: {
+        locale: '分析页',
+        requiresAuth: true,
+      },
+    },
   ],
 };
 
