@@ -41,6 +41,13 @@
         </a-tooltip>
       </li> -->
       <li>
+        <a-tooltip content="数据大屏">
+          <div class="grid-btn" @click="openWindow('/screen/overview')">
+            <SvgIcon icon-class="ad-screen" :size="18" />
+          </div>
+        </a-tooltip>
+      </li>
+      <li>
         <a-tooltip content="主题配置">
           <div
             class="grid-btn"

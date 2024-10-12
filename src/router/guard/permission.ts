@@ -5,7 +5,11 @@ import usePermission from '@/hooks/permission';
 import { useUserStore, useAppStore } from '@/store';
 import { appRoutes } from '../routes';
 import { WHITE_LIST, NOT_FOUND } from '../constants';
-import { REDIRECT_MAIN, NOT_FOUND_ROUTE } from '../routes/base';
+import {
+  REDIRECT_MAIN,
+  NOT_FOUND_ROUTE,
+  SCREEN_OVERVIEW_DATA,
+} from '../routes/base';
 
 export default function setupPermissionGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
@@ -30,6 +34,7 @@ export default function setupPermissionGuard(router: Router) {
         ...appStore.appAsyncMenus,
         ...WHITE_LIST,
         REDIRECT_MAIN,
+        SCREEN_OVERVIEW_DATA,
       ];
 
       let exist = false;

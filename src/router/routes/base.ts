@@ -29,3 +29,9 @@ export const NOT_FOUND_ROUTE: RouteRecordRaw = {
   name: 'notFound',
   component: () => import('@/views/not-found/index.vue'),
 };
+
+export const SCREEN_OVERVIEW_DATA: RouteRecordRaw = {
+  path: '/screen/overview',
+  name: 'LargeScreen',
+  component: () => import('@/views/largeScreen/index.vue'),
+};

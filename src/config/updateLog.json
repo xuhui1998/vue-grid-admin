@@ -46,5 +46,11 @@
     "type": "add",
     "content": ["分析页开发"],
     "create_time": "2024-10-10"
+  },
+  {
+    "version": "1.0.8",
+    "type": "add",
+    "content": ["项目更新记录"],
+    "create_time": "2024-10-12"
   }
 ]
