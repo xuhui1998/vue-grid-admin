@@ -1,10 +1,12 @@
 <template>
   <div
-    :class="['wrapper', 'layer-bg', 'mb-10', className]"
+    :class="['wrapper', 'layer-bg', 'mb-10', 'omit', className]"
     :style="wrapperStyle"
   >
     <div :class="['wrapper-title', titleClassName]" :style="titleStyle">
-      <div v-if="title">{{ title }}</div>
+      <div v-if="title">
+        <span>{{ title }}</span>
+      </div>
       <slot name="title"></slot>
     </div>
     <div :class="['wrapper-content', contentClassName]" :style="contentStyle">
@@ -14,9 +16,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { type CSSProperties, computed } from 'vue';
+  import { type CSSProperties, ref, watchEffect } from 'vue';
 
-  defineProps<{
+  const props = defineProps<{
     title?: string;
     titleStyle?: CSSProperties;
     contentStyle?: CSSProperties;
@@ -31,12 +33,12 @@
     default: any;
   }>();
 
-  const titlePadding = computed(() => {
-    const titleDom = document.querySelector('.wrapper-title');
-    if (titleDom.children.length > 0 || slots.title) {
-      return '10px 10px 0 10px';
+  const titlePadding = ref('0');
+
+  watchEffect(() => {
+    if (props.title || slots.title) {
+      titlePadding.value = '10px 10px 0 10px';
     }
-    return '0';
   });
 </script>
 
@@ -50,9 +52,6 @@
       font-size: 16px;
       font-weight: bold;
       line-height: 1.5715;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
       padding: v-bind(titlePadding);
     }
     &-content {

@@ -1,0 +1,50 @@
+[
+  {
+    "version": "1.0.0",
+    "type": "add",
+    "content": ["项目搭建"],
+    "create_time": "2024-08-07"
+  },
+  {
+    "version": "1.0.1",
+    "type": "add",
+    "content": ["init 项目初始化基础配置", "登录权限校验", "通用组件", "api配置"],
+    "create_time": "2024-08-16"
+  },
+  {
+    "version": "1.0.2",
+    "type": "add",
+    "content": ["菜单功能", "新建文档、首页、设置菜单"],
+    "create_time": "2024-08-16"
+  },
+  {
+    "version": "1.0.3",
+    "type": "optimize",
+    "content": ["组件优化，调整组件样式，添加页面布局"],
+    "create_time": "2024-09-05"
+  },
+  {
+    "version": "1.0.4",
+    "type": "add",
+    "content": ["页面配置", "页面配置功能，布局、水印选择式配置", "更多功能开发中..."],
+    "create_time": "2024-09-14"
+  },
+  {
+    "version": "1.0.5",
+    "type": "bug",
+    "content": ["修复tabbar样式bug", "修复GridDrawer组件关闭调用的问题"],
+    "create_time": "2024-09-18"
+  },
+  {
+    "version": "1.0.6",
+    "type": "add",
+    "content": ["工作台开发"],
+    "create_time": "2024-09-21"
+  },
+  {
+    "version": "1.0.7",
+    "type": "add",
+    "content": ["分析页开发"],
+    "create_time": "2024-10-10"
+  }
+]

@@ -1,16 +1,21 @@
 <template>
   <a-drawer
+    :visible="visible"
     :width="width"
     unmount-on-close
     :mask-closable="maskClosable"
-    :visible="visible"
     :closable="false"
-    @ok="handleOk"
+    :placement="placement"
+    :hide-cancel="hideCancel"
     @cancel="handleCancel"
   >
     <template #title>
       <span>{{ title }}</span>
-      <div class="close flex-center" @click="handleCancel">
+      <div
+        v-if="visible"
+        :class="['close', 'flex-center', 'transition-all-300', placementClass]"
+        @click="handleCancel"
+      >
         <IconClose />
       </div>
     </template>
@@ -21,8 +26,12 @@
           <slot name="footerLeft"></slot>
         </div>
         <a-space>
-          <a-button @click="handleCancel">{{ cancelText }}</a-button>
-          <a-button type="primary" @click="handleOk">{{ okText }}</a-button>
+          <a-button v-if="!hideCancel" @click="handleCancel">
+            {{ cancelText }}
+          </a-button>
+          <a-button type="primary" :loading="okLoading" @click="handleOk">
+            {{ okText }}
+          </a-button>
         </a-space>
       </div>
     </template>
@@ -30,28 +39,40 @@
 </template>
 
 <script lang="ts" setup>
-  import { defineModel } from 'vue';
+  import { defineModel, computed, watch } from 'vue';
 
-  const visible = defineModel({ type: Boolean, default: false });
-
+  type Placement = 'top' | 'right' | 'bottom' | 'left';
   interface Props {
     width?: number;
+    visible: boolean;
     title: string;
     cancelText?: string;
     okText?: string;
     maskClosable?: boolean;
+    placement?: Placement;
+    hideCancel?: boolean;
+    okLoading?: boolean;
   }
 
-  withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<Props>(), {
     width: 300,
     cancelText: '取消',
     okText: '确定',
     maskClosable: true,
+    placement: 'right',
+    hideCancel: false,
+    okLoading: false,
   });
   const emit = defineEmits<{
     (e: 'onOk'): void;
     (e: 'onCancel'): void;
   }>();
+
+  // const visible = defineModel({ type: Boolean, default: false });
+
+  const placementClass = computed(() => {
+    return `placement-close-${props.placement}`;
+  });
 
   const handleOk = () => {
     emit('onOk');
@@ -64,13 +85,10 @@
 
 <style lang="less" scoped>
   .close {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     position: absolute;
-    left: -30px;
-    top: 10px;
     cursor: pointer;
-    border-radius: 4px 0 0 4px;
     background: var(--grid-primary-bg-color);
     &:hover .arco-icon {
       transform: rotate(90deg);
@@ -79,5 +97,25 @@
     .arco-icon {
       color: var(--color-bg-1);
     }
+  }
+  .placement-close-right {
+    left: -32px;
+    top: 10px;
+    border-radius: 4px 0 0 4px;
+  }
+  .placement-close-left {
+    right: -32px;
+    top: 10px;
+    border-radius: 0 4px 4px 0;
+  }
+  .placement-close-top {
+    right: 10px;
+    bottom: -32px;
+    border-radius: 0 0 4px 4px;
+  }
+  .placement-close-bottom {
+    right: 10px;
+    top: -32px;
+    border-radius: 4px 4px 0 0;
   }
 </style>
