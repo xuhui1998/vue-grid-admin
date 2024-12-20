@@ -26,7 +26,6 @@ export default function usePermission() {
           cloneRouters.push(...firstElement.children);
         }
       }
-      console.log(cloneRouters, 'cloneRouters');
       return null;
     },
     // You can add any rules you want
