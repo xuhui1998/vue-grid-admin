@@ -8,4 +8,9 @@ export default class LoginDto {
    * 密码
    */
   password = '';
+
+  /**
+   * 滑块验证
+   */
+  isVerify = false;
 }

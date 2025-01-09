@@ -42,6 +42,24 @@
           </template>
         </a-input-password>
       </a-form-item>
+      <a-form-item
+        field="isVerify"
+        hide-label
+        :rules="[
+          {
+            required: true,
+            type: 'boolean',
+            message: '请先完成验证',
+            true: true,
+          },
+        ]"
+      >
+        <SliderVerify
+          v-model="userInfo.isVerify"
+          size="large"
+          @on-success="sliderVerifySuccess"
+        />
+      </a-form-item>
       <a-space :size="16" direction="vertical">
         <div class="login-form-password-actions">
           <a-checkbox
@@ -83,6 +101,7 @@
   const router = useRouter();
   const { t } = useI18n();
   const errorMessage = ref('');
+  const loginForm = ref();
   const { loading, setLoading } = useLoading();
   const userStore = useUserStore();
 
@@ -156,6 +175,12 @@
   };
   const setRememberPassword = (value: boolean) => {
     loginConfig.value.rememberPassword = value;
+  };
+
+  const sliderVerifySuccess = (value: boolean) => {
+    if (value) {
+      loginForm.value?.validateField('isVerify');
+    }
   };
 
   onMounted(() => {});

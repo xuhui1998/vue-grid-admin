@@ -4,7 +4,6 @@ import configCompressPlugin from './plugin/compress';
 import configVisualizerPlugin from './plugin/visualizer';
 import configArcoResolverPlugin from './plugin/arcoResolver';
 import configImageminPlugin from './plugin/imagemin';
-const fs = require('fs');
 
 export default mergeConfig(
   {

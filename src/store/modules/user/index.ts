@@ -43,9 +43,15 @@ const useUserStore = defineStore('user', {
      * 获取用户信息
      */
     async info() {
-      const { data } = await getUserInfo();
-      this.setInfo(data);
-      this.role = data.role_id;
+      try {
+        const { data, code } = await getUserInfo();
+        if (code === 200) {
+          this.setInfo(data);
+          this.role = data.role_id;
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
 
     // Login

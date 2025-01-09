@@ -13,7 +13,7 @@ export function logout() {
   return axios.post<LoginDto>('/grid/auth/logout');
 }
 
-export function getUserInfo() {
+export function getUserInfo(): Promise<ResponseDto<any>> {
   return axios.post('/grid/auth/user');
 }
 
