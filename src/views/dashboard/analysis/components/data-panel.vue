@@ -12,13 +12,8 @@
         </a-skeleton>
       </a-grid-item>
     </a-grid>
-    <a-grid v-else :cols="24" :col-gap="20" class="panel">
-      <a-grid-item
-        v-for="item in sumData"
-        :key="item.id"
-        class="panel-col"
-        :span="4"
-      >
+    <div v-else :cols="24" :col-gap="20" class="panel">
+      <div v-for="item in sumData" :key="item.id" class="panel-col">
         <a-space>
           <div class="icon">
             <SvgIcon :icon-class="item.icon" :size="54" />
@@ -46,8 +41,8 @@
             <span class="suffix">%</span>
           </span>
         </div>
-      </a-grid-item>
-    </a-grid>
+      </div>
+    </div>
   </Wrapper>
 </template>
 
@@ -88,6 +83,9 @@
     }
   }
   .panel {
+    display: flex;
+    gap: 20px;
+    overflow: auto;
     .panel-col {
       background: var(--color-bg-2);
       padding: 15px 20px;

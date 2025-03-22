@@ -10,8 +10,9 @@ import {
   REDIRECT_ROUTE_NAME,
 } from '@/router/constants';
 import { isString } from '@/utils/is';
+import defaultSettings from '@/config/settings.json';
 import appStore from '../app';
-import { TabBarState, TagProps } from './types';
+import { TabBarState, TagProps, TabBarType } from './types';
 
 const formatTag = (route: RouteLocationNormalized): TagProps => {
   const { name, meta, fullPath, query } = route;
@@ -39,6 +40,7 @@ const useAppStore = defineStore('tabBar', {
   state: (): TabBarState => ({
     cacheTabList: new Set([DEFAULT_ROUTE_NAME]),
     tagList: [DEFAULT_ROUTE],
+    tabType: defaultSettings.tabType as TabBarType,
   }),
 
   getters: {

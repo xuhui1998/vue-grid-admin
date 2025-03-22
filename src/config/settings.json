@@ -12,6 +12,7 @@
   "device": "desktop",
   "transitionName": "fade-slide",
   "tabBar": true,
+  "tabType": "chrome",
   "menuFromServer": true,
   "breadcrumb": true,
   "layoutFullscreen": false,

@@ -41,7 +41,7 @@
       name: '菜单栏',
       key: 'menu',
       defaultVal: appStore.menu,
-      type: 'switch',
+      type: 'radio',
       layout: ['left', 'top'],
     },
     {
@@ -56,6 +56,19 @@
       key: 'tabBar',
       defaultVal: appStore.tabBar,
       type: 'switch',
+      layout: ['mix', 'left', 'top'],
+    },
+    {
+      name: '页签风格',
+      key: 'tabType',
+      defaultVal: appStore.tabType,
+      type: 'select',
+      options: [
+        { label: '按钮', value: 'button' },
+        { label: '卡片', value: 'card' },
+        { label: '圆滑', value: 'round' },
+        { label: '谷歌风格', value: 'chrome' },
+      ],
       layout: ['mix', 'left', 'top'],
     },
     {

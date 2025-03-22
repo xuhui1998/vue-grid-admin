@@ -7,9 +7,14 @@
       { 'hide-tab-bar': !appStore.tabBar },
     ]"
   >
-    <div class="tab-bar-box">
+    <div :class="['tab-bar-box', `tab-bar-box-${appStore.tabType}`]">
       <div class="tab-bar-scroll">
-        <div class="tags-wrap">
+        <div
+          :class="[
+            'tags-wrap',
+            { 'tags-wrap-chrome': appStore.tabType === 'chrome' },
+          ]"
+        >
           <tab-item
             v-for="(tag, index) in tagList"
             :key="tag.fullPath"
@@ -98,14 +103,16 @@
     overflow: hidden;
     .tab-bar-box {
       display: flex;
-      padding: 4px 12px;
+      padding: 0 12px;
+      height: 100%;
+      align-items: center;
       .tab-bar-scroll {
         flex: 1;
         overflow: hidden;
         .tags-wrap {
           white-space: nowrap;
           overflow-x: auto;
-          height: 34px;
+          // height: 34px;
           gap: 5px;
           display: flex;
           align-items: center;
@@ -122,6 +129,15 @@
             }
           }
         }
+        .tags-wrap-chrome {
+          gap: 0;
+        }
+      }
+    }
+    .tab-bar-box-chrome {
+      align-items: flex-end;
+      .tag-bar-operation {
+        margin-bottom: 5px;
       }
     }
 

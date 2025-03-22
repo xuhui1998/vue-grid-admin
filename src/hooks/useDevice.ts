@@ -8,10 +8,12 @@ import { useWindowSize } from '@vueuse/core';
  * 中屏（>=992px）
  * 小屏（>=768px）
  */
-export default function useDevice() {
+export function useDevice() {
   const { width } = useWindowSize();
   const isDesktop = computed(() => width.value > 768);
   const isMobile = computed(() => !isDesktop.value);
 
   return { isMobile, isDesktop };
 }
+
+export default null;

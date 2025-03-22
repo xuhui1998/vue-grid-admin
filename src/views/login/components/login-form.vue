@@ -59,6 +59,11 @@
           size="large"
           @on-success="sliderVerifySuccess"
         />
+        <!-- <PuzzleVerify
+          v-model="userInfo.isVerify"
+          type="popover"
+          @on-success="sliderVerifySuccess"
+        /> -->
       </a-form-item>
       <a-space :size="16" direction="vertical">
         <div class="login-form-password-actions">
@@ -97,6 +102,8 @@
   import { LoginConfigProps } from '@/types/global';
   import LoginDto from '@/dto/loginDto';
   import CryptoJS from 'crypto-js';
+  import { PuzzleVerify } from 'vue3-puzzle-verify';
+  import 'vue3-puzzle-verify/lib/style.css';
 
   const router = useRouter();
   const { t } = useI18n();

@@ -22,6 +22,7 @@ import UploadFile from './uploadFile/index.vue';
 import Wrapper from './wrapper/index.vue';
 import Watermark from './watermark/index.vue';
 import TableOmitCell from './table-omit-cell/index.vue';
+import EllipsisTooltip from './ellipsis-tooltip/index.vue';
 
 // Manually introduce ECharts modules to reduce packing size
 
@@ -53,5 +54,6 @@ export default {
     Vue.component('Wrapper', Wrapper);
     Vue.component('Watermark', Watermark);
     Vue.component('TableOmitCell', TableOmitCell);
+    Vue.component('EllipsisTooltip', EllipsisTooltip);
   },
 };

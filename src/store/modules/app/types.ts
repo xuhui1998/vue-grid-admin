@@ -1,6 +1,7 @@
 import type { RouteRecordNormalized } from 'vue-router';
 
 export type Layout = 'left' | 'mix' | 'top';
+export type TabBarType = 'button' | 'card' | 'round' | 'chrome';
 export interface AppState {
   theme: string;
   colorWeak: boolean;
@@ -18,6 +19,8 @@ export interface AppState {
   device: string;
   // 展示多页签
   tabBar: boolean;
+  // 页签风格
+  tabType: TabBarType;
   // 展示面包屑
   breadcrumb: boolean;
   // 是否服务端渲染菜单

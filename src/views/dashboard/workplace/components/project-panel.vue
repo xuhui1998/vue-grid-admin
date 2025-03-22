@@ -9,7 +9,9 @@
               <span class="ml-10">{{ item.name }}</span>
             </div>
           </template>
-          <div class="content">{{ item.desc }}</div>
+          <EllipsisTooltip :content="item.desc">
+            <div class="content">{{ item.desc }}</div>
+          </EllipsisTooltip>
           <div class="flex-row-between extra mt-10">
             <span>{{ item.belong }}</span>
             <span>{{ item.date }}</span>

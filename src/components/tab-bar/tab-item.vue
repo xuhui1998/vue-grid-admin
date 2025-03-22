@@ -5,8 +5,12 @@
     @select="actionSelect"
   >
     <span
-      class="grid-tab-tag"
-      :class="{ 'link-activated': itemData.fullPath === $route.fullPath }"
+      :class="[
+        'grid-tab-tag',
+        'transition-all-300',
+        `grid-tab-tag-${appStore.tabType}`,
+        { 'link-activated': itemData.fullPath === $route.fullPath },
+      ]"
       @click="goto(itemData)"
     >
       <span v-if="itemData.icon">
@@ -66,7 +70,7 @@
 <script lang="ts" setup>
   import { PropType, computed } from 'vue';
   import { useRouter, useRoute } from 'vue-router';
-  import { useTabBarStore } from '@/store';
+  import { useTabBarStore, useAppStore } from '@/store';
   import { getIconType } from '@/utils';
   import type { TagProps } from '@/store/modules/tab-bar/types';
   import { DEFAULT_ROUTE_NAME, REDIRECT_ROUTE_NAME } from '@/router/constants';
@@ -96,6 +100,7 @@
   const router = useRouter();
   const route = useRoute();
   const tabBarStore = useTabBarStore();
+  const appStore = useAppStore();
 
   const goto = (tag: TagProps) => {
     router.push({ ...tag });
@@ -173,10 +178,6 @@
     gap: 5px;
     align-items: center;
     height: 28px;
-    border-radius: 4px;
-    &:hover {
-      background: var(--grid-default-bg-color-7);
-    }
     .tag-link {
       color: var(--color-text-2);
       text-decoration: none;
@@ -202,7 +203,13 @@
       }
     }
   }
-  .link-activated {
+  .grid-tab-tag-button {
+    border-radius: 4px;
+    &:hover {
+      background: var(--grid-default-bg-color-7);
+    }
+  }
+  .grid-tab-tag-button.link-activated {
     color: rgb(var(--link-6));
     background: var(--grid-tab-bg);
     &:hover {
@@ -215,6 +222,59 @@
       background: #adc6ff80;
     }
   }
+
+  .grid-tab-tag-card {
+    border-radius: 2px;
+    border: 1px solid var(--color-border-3);
+    color: rgb(var(--link-6));
+  }
+  .grid-tab-tag-card.link-activated {
+    border: 1px solid rgb(var(--arcoblue-6));
+    .tag-link {
+      color: rgb(var(--link-6));
+    }
+  }
+  .grid-tab-tag-round {
+    border-radius: 20px;
+    &:hover {
+      background: var(--grid-default-bg-color-7);
+    }
+  }
+  .grid-tab-tag-round.link-activated {
+    color: rgb(var(--link-6));
+    background: var(--grid-tab-bg);
+    &:hover {
+      background: var(--grid-tab-bg);
+    }
+    .tag-link {
+      color: rgb(var(--link-6));
+    }
+    .grid-icon-close:hover {
+      background: #adc6ff80;
+    }
+  }
+  .grid-tab-tag-chrome {
+    position: relative;
+    padding: 0px 18px;
+    height: 32px;
+    margin: 0 -8px 0 0;
+    &:hover {
+      background-color: #d9dde2;
+      // border-radius: 4px;
+      mask: url('@/assets/images/chrome-full.png');
+      mask-size: 100% 100%;
+    }
+  }
+  .grid-tab-tag-chrome.link-activated {
+    mask: url('@/assets/images/chrome-full.png');
+    mask-size: 100% 100%;
+    background-color: #d7e3ff;
+    z-index: 9;
+    .tag-link {
+      color: rgb(var(--link-6));
+    }
+  }
+
   :deep(.arco-dropdown-option-content) {
     span {
       margin-left: 10px;
