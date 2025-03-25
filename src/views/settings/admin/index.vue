@@ -1,5 +1,5 @@
 <template>
-  <Container title="人员管理" :breadcrumb="['设置', '人员管理']">
+  <Container>
     <template #form>
       <Wrapper title="筛选维度">
         <SearchForm

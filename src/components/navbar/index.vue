@@ -111,7 +111,7 @@
 <script lang="ts" setup>
   import { ref, computed, inject } from 'vue';
   import { useDark, useToggle } from '@vueuse/core';
-  import { useAppStore, useUserStore, useLogStore } from '@/store';
+  import { useAppStore, useUserStore } from '@/store';
   import { openWindow } from '@/utils';
   import MyStorage from '@/utils/storage';
   import useUser from '@/hooks/user';
@@ -121,7 +121,6 @@
 
   const appStore = useAppStore();
   const userStore = useUserStore();
-  const logStore = useLogStore();
   const { logout } = useUser();
   const avatar = computed(() => {
     return userStore.avatar;

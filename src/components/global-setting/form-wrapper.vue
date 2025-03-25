@@ -21,6 +21,12 @@
   />
 </template>
 
+<script lang="ts">
+export default {
+  name: 'FormWrapper'
+}
+</script>
+
 <script lang="ts" setup>
   const props = defineProps({
     type: {

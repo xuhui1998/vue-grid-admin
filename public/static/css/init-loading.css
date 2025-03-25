@@ -1,0 +1,198 @@
+/* 覆盖浏览器默认白屏 */
+html:not(.loaded) body {
+  background: #f8f9fa;
+}
+
+.init-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  z-index: 9999;
+  transition: opacity 0.3s;
+}
+
+/* 自定义加载动画 */
+.loading-item,
+.loading-item > div {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.loading-item {
+  display: block;
+  font-size: 0;
+  color: #4b6bf6;
+}
+
+.loading-item.la-dark {
+  color: #4b6bf6;
+}
+
+.loading-item > div {
+  display: inline-block;
+  float: none;
+  background-color: currentColor;
+  border: 0 solid currentColor;
+}
+
+.loading-item {
+  width: 12px;
+  height: 12px;
+}
+
+.loading-item > div {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  animation: ball-fussion-ball1 1s 0s ease infinite;
+}
+
+.loading-item > div:nth-child(1) {
+  top: 0;
+  left: 50%;
+  z-index: 1;
+}
+
+.loading-item > div:nth-child(2) {
+  top: 50%;
+  left: 100%;
+  z-index: 2;
+  animation-name: ball-fussion-ball2;
+}
+
+.loading-item > div:nth-child(3) {
+  top: 100%;
+  left: 50%;
+  z-index: 1;
+  animation-name: ball-fussion-ball3;
+}
+
+.loading-item > div:nth-child(4) {
+  top: 50%;
+  left: 0;
+  z-index: 2;
+  animation-name: ball-fussion-ball4;
+}
+
+.loading-item.la-sm {
+  width: 4px;
+  height: 4px;
+}
+
+.loading-item.la-sm > div {
+  width: 6px;
+  height: 6px;
+}
+
+.loading-item.la-2x {
+  width: 16px;
+  height: 16px;
+}
+
+.loading-item.la-2x > div {
+  width: 24px;
+  height: 24px;
+}
+
+.loading-item.la-3x {
+  width: 24px;
+  height: 24px;
+}
+
+.loading-item.la-3x > div {
+  width: 36px;
+  height: 36px;
+}
+
+@keyframes ball-fussion-ball2 {
+  0% {
+    opacity: 0.35;
+  }
+
+  50% {
+    top: 200%;
+    left: 200%;
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    left: 50%;
+    z-index: 1;
+    opacity: 0.35;
+  }
+}
+
+@keyframes ball-fussion-ball1 {
+  0% {
+    opacity: 0.35;
+  }
+
+  50% {
+    top: -100%;
+    left: 200%;
+    opacity: 1;
+  }
+
+  100% {
+    top: 50%;
+    left: 100%;
+    z-index: 2;
+    opacity: 0.35;
+  }
+}
+
+@keyframes ball-fussion-ball3 {
+  0% {
+    opacity: 0.35;
+  }
+
+  50% {
+    top: 200%;
+    left: -100%;
+    opacity: 1;
+  }
+
+  100% {
+    top: 50%;
+    left: 0;
+    z-index: 2;
+    opacity: 0.35;
+  }
+}
+
+@keyframes ball-fussion-ball4 {
+  0% {
+    opacity: 0.35;
+  }
+
+  50% {
+    top: -100%;
+    left: -100%;
+    opacity: 1;
+  }
+
+  100% {
+    top: 0;
+    left: 50%;
+    z-index: 1;
+    opacity: 0.35;
+  }
+}
+
+.loading-text {
+  margin-top: 16px;
+  color: #4b6bf6;
+  font-size: 24px;
+  font-weight: 700;
+} 

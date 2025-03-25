@@ -71,6 +71,12 @@
   };
 </script>
 
+<script lang="ts">
+  export default {
+    name: 'Block',
+  };
+</script>
+
 <style scoped lang="less">
   .block {
     margin-bottom: 24px;
