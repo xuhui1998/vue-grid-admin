@@ -11,6 +11,15 @@ export const addAdmin = (data: any): Promise<ResponseDto<any>> => {
 };
 
 /**
+ * 修改人员
+ * @param data
+ * @returns
+ */
+export const editAdmin = (data: any): Promise<ResponseDto<any>> => {
+  return axios.post('/grid/auth/editAdmin', data);
+};
+
+/**
  * 非配权限菜单列表
  * @param data
  * @returns
@@ -45,6 +54,3 @@ export const menuDetail = (data: any): Promise<ResponseDto<any>> => {
 export const delMenu = (data: any): Promise<ResponseDto<any>> => {
   return axios.post('/grid/settings/delMenu', data);
 };
-
-
-

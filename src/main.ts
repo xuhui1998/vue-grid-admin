@@ -2,7 +2,7 @@
  * @Author: mizao 1253767373@qq.com
  * @Date: 2025-01-13 15:11:45
  * @LastEditors: mizao 1253767373@qq.com
- * @LastEditTime: 2025-03-25 15:46:37
+ * @LastEditTime: 2025-03-26 13:58:22
  * @FilePath: /vue-grid-admin/src/main.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -31,6 +31,15 @@ import '@/assets/style/transition.less';
 import '@/api/interceptor';
 // eslint-disable-next-line import/no-unresolved
 import 'virtual:svg-icons-register';
+
+// 根据环境变量决定是否启用Mock
+if (process.env.VUE_APP_API_MODE === 'mock') {
+  import('./mock').then(module => {
+    if (module && module.init) {
+      module.init();
+    }
+  });
+}
 
 const app = createApp(App);
 

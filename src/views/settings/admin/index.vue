@@ -77,9 +77,9 @@
   import { Message } from '@arco-design/web-vue';
   import { commonApiUrl } from '@/api/common-api-url';
   import { addAdmin, editAdmin } from '@/api/settings';
-  import { searchFormJson } from './formJson';
   import { ModalType } from '@/types/global';
   import { AdminFormDto } from '@/dto/setting/admin';
+  import { searchFormJson } from './formJson';
 
   const Modal = defineAsyncComponent(() => import('./components/modal.vue'));
 
