@@ -7,13 +7,12 @@
     <span
       :class="[
         'grid-tab-tag',
-        'transition-all-300',
         `grid-tab-tag-${appStore.tabType}`,
         { 'link-activated': itemData.fullPath === $route.fullPath },
       ]"
       @click="goto(itemData)"
     >
-      <span v-if="itemData.icon">
+      <span v-if="itemData.icon" class="tag-icon">
         <component
           :is="itemData.icon"
           v-if="getIconType(itemData.icon) === 'arco-icon'"
@@ -215,7 +214,8 @@
     &:hover {
       background: var(--grid-tab-bg);
     }
-    .tag-link {
+    .tag-link,
+    .tag-icon {
       color: rgb(var(--link-6));
     }
     .grid-icon-close:hover {
@@ -230,7 +230,8 @@
   }
   .grid-tab-tag-card.link-activated {
     border: 1px solid rgb(var(--arcoblue-6));
-    .tag-link {
+    .tag-link,
+    .tag-icon {
       color: rgb(var(--link-6));
     }
   }
@@ -246,7 +247,8 @@
     &:hover {
       background: var(--grid-tab-bg);
     }
-    .tag-link {
+    .tag-link,
+    .tag-icon {
       color: rgb(var(--link-6));
     }
     .grid-icon-close:hover {
@@ -270,7 +272,8 @@
     mask-size: 100% 100%;
     background-color: #d7e3ff;
     z-index: 9;
-    .tag-link {
+    .tag-link,
+    .tag-icon {
       color: rgb(var(--link-6));
     }
   }

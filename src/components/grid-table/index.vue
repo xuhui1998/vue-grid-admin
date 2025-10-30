@@ -121,7 +121,7 @@
     ): void;
     (e: 'selectAll', rowKeys: (string | number)[], isAll: boolean): void;
     (e: 'expand', rowKey: string | number, record: TableData): void;
-    (e: 'clearMain',): void;
+    (e: 'clearMain'): void;
   }>();
 
   const props = withDefaults(

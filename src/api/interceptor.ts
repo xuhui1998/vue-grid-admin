@@ -40,22 +40,24 @@ axios.interceptors.response.use(
     }
     if (data.code === 401 || data.code === 402) {
       if (status) {
-        // Message.warning({
-        //   content: data.message || '登录已过期，请重新登录',
-        //   duration: 3 * 1000,
-        // });
-        Modal.error({
-          title: '系统提示',
-          content: data.message,
-          modalStyle: { textAlign: 'center' },
-          escToClose: false,
-          maskClosable: false,
-          okText: '确认',
-          async onOk() {
-            clearToken();
-            window.location.href = '/login';
-          },
+        clearToken();
+        window.location.href = '/login';
+        Message.warning({
+          content: data.message || '登录已过期，请重新登录',
+          duration: 3 * 1000,
         });
+        // Modal.error({
+        //   title: '系统提示',
+        //   content: data.message,
+        //   modalStyle: { textAlign: 'center' },
+        //   escToClose: false,
+        //   maskClosable: false,
+        //   okText: '确认',
+        //   async onOk() {
+        //     clearToken();
+        //     window.location.href = '/login';
+        //   },
+        // });
       }
       status = false;
       const timeout = setTimeout(() => {

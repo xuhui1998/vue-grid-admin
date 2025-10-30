@@ -1,4 +1,3 @@
-import Qs from 'qs';
 import axios from 'axios';
 import ResponseDto from '@/dto/responseDto';
 
@@ -9,5 +8,5 @@ import ResponseDto from '@/dto/responseDto';
  * @returns
  */
 export const loadData = (url: string, data: any): Promise<ResponseDto<any>> => {
-  return axios.post(url, Qs.stringify(data));
+  return axios.post(url, data);
 };

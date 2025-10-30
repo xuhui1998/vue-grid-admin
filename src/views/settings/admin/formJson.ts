@@ -1,51 +1,17 @@
-export const groupArr = [
-  {
-    value: '1',
-    label: '技术',
-  },
-  {
-    value: '2',
-    label: '商务',
-  },
-  {
-    value: '3',
-    label: '编辑',
-  },
-  {
-    value: '4',
-    label: '运营',
-  },
-  {
-    value: '5',
-    label: '推广',
-  },
-  {
-    value: '6',
-    label: '产品',
-  },
-];
-
+/*
+ * @Author: mizao 1253767373@qq.com
+ * @Date: 2024-08-15 15:58:41
+ * @LastEditors: mizao 1253767373@qq.com
+ * @LastEditTime: 2025-05-30 16:06:46
+ * @FilePath: /vue-grid-admin/src/views/settings/admin/formJson.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 export const searchFormJson = [
-  // {
-  //   name: 'admin_id',
-  //   label: 'ID',
-  //   type: 'a-input',
-  //   placeholder: '请输入所属人员ID',
-  //   options: [],
-  // },
   {
-    name: 'real_name',
-    label: '人员名称',
-    type: 'a-input',
-    placeholder: '请输入所属人员名称',
-    options: [],
-    hideLabel: true,
-  },
-  {
-    name: 'account',
-    label: '账号',
-    type: 'a-input',
-    placeholder: '请输入所属人员账号',
+    name: 'user_id',
+    label: '用户名称',
+    type: 'a-select',
+    placeholder: '请选择用户',
     options: [],
     hideLabel: true,
   },
@@ -73,14 +39,14 @@ export const searchFormJson = [
 
 export const adminFormJson = [
   {
-    name: 'real_name',
-    label: '人员名称',
+    name: 'nick_name',
+    label: '用户昵称',
     type: 'a-input',
-    placeholder: '请输入所属人员名称',
+    placeholder: '请输入用户昵称',
     options: [],
   },
   {
-    name: 'account',
+    name: 'username',
     label: '账号',
     type: 'a-input',
     placeholder: '请输入用户账号',
@@ -109,7 +75,7 @@ export const adminFormJson = [
   },
   {
     name: 'status',
-    label: '人员状态',
+    label: '用户状态',
     type: 'a-switch',
     checkedValue: 1,
     unCheckedValue: 0,

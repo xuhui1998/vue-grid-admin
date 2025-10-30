@@ -19,19 +19,25 @@
 <script setup lang="ts">
   import { reactive, toRefs, ref, computed, onMounted } from 'vue';
   import { omit } from 'lodash';
-  import { adminInfo, roleList } from '@/api/settings';
+  // import { adminInfo, roleList } from '@/api/settings';
   import { getStandardArr } from '@/utils';
   import { ModalType } from '@/types/global';
-  import { adminFormJson } from '../formJson';
   import { AdminFormDto } from '@/dto/setting/admin';
+  import { adminFormJson } from '../formJson';
 
   const props = defineProps<{
     visible: boolean;
     title: string;
     type: ModalType;
     record: Record<string, any> | undefined;
-  }>()
+  }>();
   const { visible, title, type, record } = toRefs(props);
+
+  const state = reactive({
+    formModel: new AdminFormDto(),
+    roleList: [] as Array<{ id: string; name: string }>,
+  });
+  const formRef = ref();
 
   const addRules = {
     real_name: [
@@ -68,12 +74,12 @@
       {
         validator: (value: string, cb: (text?: string) => void) => {
           if (value !== state.formModel.password) {
-            cb('两次输入密码不一致')
+            cb('两次输入密码不一致');
           } else {
-            cb()
+            cb();
           }
-        }
-      }
+        },
+      },
     ],
     role_id: [
       {
@@ -109,12 +115,12 @@
       {
         validator: (value: string, cb: (text?: string) => void) => {
           if (state.formModel.password && value !== state.formModel.password) {
-            cb('两次输入密码不一致')
+            cb('两次输入密码不一致');
           } else {
-            cb()
+            cb();
           }
-        }
-      }
+        },
+      },
     ],
     role_id: [
       {
@@ -123,12 +129,7 @@
       },
     ],
   };
-  
-  const state = reactive({
-    formModel: new AdminFormDto(),
-    roleList: [] as Array<{ id: string; name: string }>,
-  });
-  const formRef = ref();
+
   const newFormJson = computed(() => {
     return adminFormJson.map((item: any) => {
       if (item.name === 'role_id') {
@@ -160,14 +161,22 @@
   const getAdminInfo = async () => {
     const { data, code } = await adminInfo({ admin_id: record.value.id });
     if (code === 200) {
-      const omitArr = ['last_time', 'role_list', 'is_screen_ad', 'group_name', 'group_id']
-      state.formModel = { ...state.formModel, ...omit(data, omitArr) } as AdminFormDto;
+      const omitArr = [
+        'last_time',
+        'role_list',
+        'group_name',
+        'group_id',
+      ];
+      state.formModel = {
+        ...state.formModel,
+        ...omit(data, omitArr),
+      } as AdminFormDto;
     }
   };
 
   onMounted(() => {
     getRoleList();
-    if(type.value === 'edit') {
+    if (type.value === 'edit') {
       getAdminInfo();
     }
   });

@@ -13,18 +13,14 @@
       </Wrapper>
     </template>
     <template #content>
-      <Wrapper :content-style="{ padding: '10px 0' }">
+      <Wrapper>
         <template #title>
           <a-space>
-            <a-button
-              v-permission="'admin.add'"
-              type="primary"
-              @click="showModal('add')"
-            >
+            <a-button type="primary" @click="showModal('add')">
               <template #icon>
                 <icon-plus />
               </template>
-              新增人员
+              新增用户
             </a-button>
           </a-space>
         </template>
@@ -49,10 +45,7 @@
             </a-tag>
           </template>
           <template #edit="{ record }">
-            <a-button
-              v-permission="'admin.edit'"
-              type="text"
-              @click="showModal('edit', record)"
+            <a-button type="text" @click="showModal('edit', record)"
               >修改</a-button
             >
           </template>
@@ -90,13 +83,13 @@
       align: 'center',
     },
     {
-      title: '人员名称',
-      dataIndex: 'real_name',
+      title: '用户昵称',
+      dataIndex: 'nick_name',
       align: 'center',
     },
     {
       title: '账号',
-      dataIndex: 'account',
+      dataIndex: 'user_name',
       align: 'center',
     },
     {
@@ -105,14 +98,9 @@
       align: 'center',
     },
     {
-      title: '状态',
+      title: '用户状态',
       dataIndex: 'status',
       slotName: 'status',
-      align: 'center',
-    },
-    {
-      title: '上次登录时间',
-      dataIndex: 'last_time',
       align: 'center',
     },
     {
